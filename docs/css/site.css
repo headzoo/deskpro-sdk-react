@@ -1,0 +1,82 @@
+body {
+  color: #000;
+  background-color: #FFF;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+.nav {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000;
+}
+
+a {
+  color: #4696dc;
+}
+
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active:hover > a,
+.bs-sidebar .nav > .active:focus > a {
+  color: #ffffff;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+  color: #FFF;
+  background-color: #6faee6;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  color: #FFF;
+  background-color: #6faee6;
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:focus {
+  color: #FFF;
+  background-color: #75bff8;
+}
+
+.navbar-default .dropdown-menu>.active>a,
+.navbar-default .dropdown-menu>.active>a:hover,
+.navbar-default .dropdown-menu>li>a:hover {
+  color: #FFF;
+  background-color: #75bff8;
+}
+
+.navbar-default {
+  background: #3d91d9 url(https://deskpro.com/assets/build/assets/images/home-page/new-hero-background@2x.jpg);
+}
+
+.bs-sidenav {
+  font-size: 14px;
+  background-color: #3782C5;
+}
+
+.modal-content {
+  color: #FFF;
+}
+
+.modal-content h4 {
+  color: #FFF;
+}
+
+footer {
+  color: #FFF;
+  background-color: #1D3E55;
+}
+
+pre {
+  padding: 0;
+  border: 1px solid #203950;
+}
+
+pre > code {
+  font-size: 14px;
+}

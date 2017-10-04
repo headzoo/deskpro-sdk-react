@@ -1,0 +1,15 @@
+site_name: DeskPRO React SDK
+theme: psinder
+site_favicon: favicon.png
+extra_css:
+  - "https://fonts.googleapis.com/css?family=Roboto"
+  - "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/monokai_sublime.min.css"
+  - "css/site.css"
+pages:
+  - Home: index.md
+  - Components:
+    - DeskproSDK: components/DeskproSDK.md
+    - Link: components/Link.md
+    - LinkButton: components/LinkButton.md
+  - API:
+    - Actions: api/actions.md
