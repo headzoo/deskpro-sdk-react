@@ -63,9 +63,6 @@
   },
   "gh-pages-deploy": {
     "staticpath": "site",
-    "prep": [
-      "docs:build"
-    ],
     "noprompt": true
   },
   "lint-staged": {
