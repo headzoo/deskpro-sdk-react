@@ -193,7 +193,7 @@ class DeskproSDK extends React.Component {
         <AppIcon
           badgeCount={dpapp.ui.badgeCount}
           badgeVisible={dpapp.ui.badge === UIConstants.VISIBILITY_VISIBLE}
-        />
+          />
         {name}
       </Heading>
     );

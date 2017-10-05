@@ -7,11 +7,12 @@
     "clean": "rimraf dist",
     "test": "jest ./tests/*/*.test.js",
     "build": "webpack -p",
-    "build:docs": "documentation build src/actions/*.js -f md --shallow -o docs/api/actions.md && mkdocs build",
+    "docs:serve": "mkdocs serve",
+    "docs:deploy": "gh-pages-deploy",
+    "docs:build": "mkdocs build",
     "lint": "eslint src/* --cache --cache-location=.cache/eslint --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix",
-    "serve:docs": "mkdocs serve",
-    "serve:storybook": "start-storybook -p 9003 -c .storybook",
+    "storybook": "start-storybook -p 9003 -c .storybook",
     "precommit": "lint-staged",
     "prepublish": "npm run build"
   },
@@ -37,6 +38,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.4.0",
+    "gh-pages-deploy": "^0.4.2",
     "jest": "^21.2.1",
     "jsdoc-babel": "^0.3.0",
     "lint-staged": "^4.2.3",
@@ -58,6 +60,13 @@
     "modulePaths": [
       "src"
     ]
+  },
+  "gh-pages-deploy": {
+    "staticpath": "site",
+    "prep": [
+      "docs:build"
+    ],
+    "noprompt": true
   },
   "lint-staged": {
     "*.{js,jsx}": [
