@@ -159,6 +159,21 @@ export function entityValue(key, value) {
 }
 
 /**
+ * Saves the oauth settings
+ *
+ * @param {string} provider
+ * @param {*} settings
+ * @returns {{type: SDK_OAUTH_PROVIDER, provider: string, settings: *}}
+ */
+export function oauthProvider(provider, settings) {
+  return {
+    type: types.SDK_OAUTH_PROVIDER,
+    provider,
+    settings
+  };
+}
+
+/**
  * Sets app storage values
  *
  * Examples:
@@ -340,6 +355,26 @@ export function entityGetStorage(key, defaultValue = null, cb = () => {}) {
         } else {
           dispatch(entityValue(key, value));
         }
+        return cb();
+      }).catch((e) => {
+        cb();
+        return dispatch(error(e));
+      });
+  };
+}
+
+/**
+ * Retrieves the oauth settings
+ *
+ * @param {string} provider
+ * @param {Function} cb
+ * @returns {Function}
+ */
+export function oauthGetSettings(provider, cb = () => {}) {
+  return (dispatch, getState, { oauth }) => {
+    return oauth.settings(provider)
+      .then((settings) => {
+        dispatch(oauthProvider(provider, settings));
         return cb();
       }).catch((e) => {
         cb();

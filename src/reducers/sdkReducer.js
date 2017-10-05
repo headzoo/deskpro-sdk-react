@@ -170,6 +170,23 @@ function reduceEntityValue(state, action) {
 }
 
 /**
+ * Handles types.SDK_OAUTH_PROVIDER
+ *
+ * @param {*} state
+ * @param {*} action
+ * @returns {*}
+ */
+function reduceOauthProvider(state, action) {
+  const oauth = Object.assign({}, state.oauth);
+  oauth.providers[action.provider] = action.settings;
+
+  return {
+    ...state,
+    oauth
+  };
+}
+
+/**
  * SDK reducer
  *
  * @param {*} state
@@ -194,6 +211,8 @@ export default function sdkReducer(state = initialState.sdk, action = {}) {
       return reduceAppValue(state, action);
     case types.SDK_ENTITY_VALUE:
       return reduceEntityValue(state, action);
+    case types.SDK_OAUTH_PROVIDER:
+      return reduceOauthProvider(state, action);
     default: return state;
   }
 }

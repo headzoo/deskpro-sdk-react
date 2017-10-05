@@ -22,7 +22,7 @@ import AppIcon from './AppIcon';
  *  const store = configureStore(dpapp);
  *
  *  ReactDOM.render(
- *    <DeskproSDK name="My App" dpapp={dpapp} store={store}>
+ *    <DeskproSDK dpapp={dpapp} store={store}>
  *      <App />
  *    </DeskproSDK>,
  *    document.getElementById('deskpro-app')
@@ -138,13 +138,18 @@ class DeskproSDK extends React.Component {
     if (dpapp.manifest.storage && dpapp.manifest.storage.length > 0) {
       const appKeys    = [];
       const entityKeys = [];
+      const oauthKeys  = [];
+
       dpapp.manifest.storage.forEach((item) => {
-        if (item.name.indexOf('entity:') === 0) {
+        if (item.name.indexOf('oauth:') === 0) {
+          oauthKeys.push(item.name.replace('oauth:', ''));
+        } else if (item.name.indexOf('entity:') === 0) {
           entityKeys.push(item.name.replace('entity:', ''));
         } else {
           appKeys.push(item.name.replace('app:', ''));
         }
       });
+
       if (appKeys.length > 0) {
         sync.incr();
         dispatch(sdkActions.appGetStorage(appKeys, sync.decr));
@@ -152,6 +157,11 @@ class DeskproSDK extends React.Component {
       if (entityKeys.length > 0) {
         sync.incr();
         dispatch(sdkActions.entityGetStorage(entityKeys, sync.decr));
+      }
+      if (oauthKeys.length > 0) {
+        for (let i = 0; i < oauthKeys.length; i += 1) {
+          dispatch(sdkActions.oauthGetSettings(oauthKeys[i]));
+        }
       }
     }
   };

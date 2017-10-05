@@ -145,22 +145,27 @@ export function propKeyFilter(obj1, obj2) {
 export function buildConnectedProps(props) {
   const { dpapp, dispatch, sdk } = props;
 
-  const tabData = Object.assign({}, sdk.tabData);
-  const form    = Object.assign({}, props.form);
   const me      = Object.assign({}, sdk.me);
-  const ui      = Object.assign({}, dpapp.ui);
+  const form    = Object.assign({}, props.form);
+  const tabData = Object.assign({}, sdk.tabData);
+  const context = dpapp.context;
+  const storage = new Storage(dispatch, sdk.storage);
+  const route   = new Route(dispatch, sdk.route);
+  const oauth   = dpapp.oauth;
+  const ui      = dpapp.ui;
 
+  oauth.providers = sdk.oauth.providers;
   ui.error = (error) => {
     dispatch(sdkActions.error(error));
   };
 
   return {
-    oauth:   dpapp.oauth,
-    context: dpapp.context,
-    route:   new Route(dispatch, sdk.route),
-    storage: new Storage(dispatch, sdk.storage),
+    context,
+    storage,
     dispatch,
     tabData,
+    route,
+    oauth,
     dpapp,
     form,
     me,
