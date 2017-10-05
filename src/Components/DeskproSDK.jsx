@@ -33,10 +33,6 @@ import AppIcon from './AppIcon';
 class DeskproSDK extends React.Component {
   static propTypes = {
     /**
-     * The name of the application.
-     */
-    name:     PropTypes.string.isRequired,
-    /**
      * Instance of sdk-core.
      */
     dpapp:    dpappPropType.isRequired,
@@ -179,7 +175,7 @@ class DeskproSDK extends React.Component {
    * @returns {*}
    */
   renderHeading = () => {
-    const { dpapp, name } = this.props;
+    const { dpapp } = this.props;
 
     const controls = [];
     if (dpapp.ui.menu !== UIConstants.VISIBILITY_HIDDEN) {
@@ -193,8 +189,8 @@ class DeskproSDK extends React.Component {
         <AppIcon
           badgeCount={dpapp.ui.badgeCount}
           badgeVisible={dpapp.ui.badge === UIConstants.VISIBILITY_VISIBLE}
-          />
-        {name}
+        />
+        {dpapp.manifest.title}
       </Heading>
     );
   };
