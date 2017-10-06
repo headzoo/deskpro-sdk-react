@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "test": "jest ./tests/*/*.test.js",
+    "test": "jest ./tests/*/*.test.*",
     "build": "webpack -p",
     "docs:serve": "mkdocs serve",
     "docs:deploy": "gh-pages-deploy",
@@ -32,6 +32,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "documentation": "^5.3.2",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-import-resolver-babel-module": "^3.0.0",
@@ -43,6 +45,7 @@
     "jsdoc-babel": "^0.3.0",
     "lint-staged": "^4.2.3",
     "module-resolver": "^1.0.0",
+    "react-test-renderer": "^15.6.2",
     "rimraf": "^2.6.2",
     "webpack": "^3.6.0"
   },
@@ -50,8 +53,8 @@
     "@deskproapps/deskproapps-sdk-core": "^1.0.0-beta.18",
     "deskpro-components": "^1.0.0",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux-form": "^7.0.4",
     "redux-thunk": "^2.2.0"

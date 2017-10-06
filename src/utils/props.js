@@ -1,7 +1,4 @@
 import PropTypes from 'prop-types';
-import * as sdkActions from '../actions/sdkActions';
-import Storage from './storage';
-import Route from './route';
 
 const { shape, object, string, func, number, bool, array } = PropTypes;
 
@@ -224,41 +221,4 @@ export function propKeyFilter(obj1, obj2) {
     .forEach(key => delete newProps[key]);
 
   return newProps;
-}
-
-/**
- * Creates the props to be passed to sdk connected components
- *
- * @param {{ dpapp: *, dispatch: Function, form: *, sdk: * }} props
- * @returns {{oauth: *, context: *, route: *, storage: *, dispatch: *, dpapp: *, form: *, ui}}
- */
-export function buildConnectedProps(props) {
-  const { dpapp, dispatch, sdk } = props;
-
-  const me      = Object.assign({}, sdk.me);
-  const form    = Object.assign({}, props.form);
-  const tabData = Object.assign({}, sdk.tabData);
-  const context = dpapp.context;
-  const storage = new Storage(dispatch, sdk.storage);
-  const route   = new Route(dispatch, sdk.route);
-  const oauth   = dpapp.oauth;
-  const ui      = dpapp.ui;
-
-  oauth.providers = sdk.oauth.providers;
-  ui.error        = (error) => {
-    dispatch(sdkActions.error(error));
-  };
-
-  return {
-    context,
-    storage,
-    dispatch,
-    tabData,
-    route,
-    oauth,
-    dpapp,
-    form,
-    me,
-    ui
-  };
 }

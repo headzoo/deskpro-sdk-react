@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider, connect } from 'react-redux';
-import { UIEvents, UIConstants } from '@deskproapps/deskproapps-sdk-core';
+import { UIConstants } from '@deskproapps/deskproapps-sdk-core';
 import { Container, Heading, Icon, Alert, Loader, DrawerList, Drawer } from 'deskpro-components';
-import { buildConnectedProps, dpappPropType, storePropType } from '../utils/props';
+import { dpappPropType, storePropType } from '../utils/props';
+import { sdkProps } from '../utils/connect';
 import * as sdkActions from '../actions/sdkActions';
 import Route from '../utils/route';
 import AppIcon from './AppIcon';
@@ -240,7 +241,7 @@ class DeskproSDK extends React.Component {
             {this.renderErrors()}
             {React.cloneElement(
               React.Children.only(children),
-              buildConnectedProps(this.props)
+              sdkProps(this.props)
             )}
           </Container>
         </Drawer>
