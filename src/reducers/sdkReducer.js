@@ -194,6 +194,18 @@ function reduceOauthProvider(state, action) {
   };
 }
 
+const reducers = {
+  [types.SDK_READY]:          reduceReady,
+  [types.SDK_ERROR]:          reduceError,
+  [types.SDK_CLEAR_ERRORS]:   reduceClearErrors,
+  [types.SDK_ME]:             reduceMe,
+  [types.SDK_TAB_DATA]:       reduceTabData,
+  [types.SDK_TO_ROUTE]:       reduceToRoute,
+  [types.SDK_APP_VALUE]:      reduceAppValue,
+  [types.SDK_ENTITY_VALUE]:   reduceEntityValue,
+  [types.SDK_OAUTH_PROVIDER]: reduceOauthProvider
+};
+
 /**
  * SDK reducer
  *
@@ -202,25 +214,8 @@ function reduceOauthProvider(state, action) {
  * @returns {*}
  */
 export default function sdkReducer(state = initialState.sdk, action = {}) {
-  switch (action.type) {
-    case types.SDK_READY:
-      return reduceReady(state);
-    case types.SDK_ME:
-      return reduceMe(state, action);
-    case types.SDK_TAB_DATA:
-      return reduceTabData(state, action);
-    case types.SDK_ERROR:
-      return reduceError(state, action);
-    case types.SDK_CLEAR_ERRORS:
-      return reduceClearErrors(state);
-    case types.SDK_TO_ROUTE:
-      return reduceToRoute(state, action);
-    case types.SDK_APP_VALUE:
-      return reduceAppValue(state, action);
-    case types.SDK_ENTITY_VALUE:
-      return reduceEntityValue(state, action);
-    case types.SDK_OAUTH_PROVIDER:
-      return reduceOauthProvider(state, action);
-    default: return state;
+  if (reducers[action.type] !== undefined) {
+    return reducers[action.type](state, action);
   }
+  return state;
 }
