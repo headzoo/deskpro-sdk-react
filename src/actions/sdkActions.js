@@ -50,6 +50,7 @@ export function ready() {
  * @returns {{type: SDK_ERROR, error: Error|string}}
  */
 export function error(e) {
+  console.error(e);
   return {
     type:  types.SDK_ERROR,
     error: e

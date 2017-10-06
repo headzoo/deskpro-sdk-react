@@ -81,24 +81,30 @@ const mapStateToProps(state) {
 export default sdkConnect(PageSettings, mapStateToProps);
 ```
 
-----
+-----
 
 ## Storage
-Connected components receive the prop `this.props.storage`, an object which allows the developer to save values with the DeskPRO application. The values are persisted from one invocation of the app and another, and may be associated with the app or the current context.
+Connected components receive `this.props.storage`, an object which reads and writes values to the DeskPRO database in order to persist them from one invocation of the app and another.
 
-Use the `this.props.storage.setApp()` method to persist values with DeskPRO which need to be associated with the app. The method takes an object of key/value pairs.
+Two mechanisms are provided for storing values. One for storing global "app" values, and one for attaching "entity" values to the currently opened ticket.
+
+----
+
+Call `this.props.storage.setApp()` to persist global values which will be bound the app. For instance app settings or user information.
+
+The method takes an object of key/value pairs.
 
 ```js
 this.props.storage.setApp({ country: 'uk' });
 ```
 
-Saved values are read from the `this.props.storage.app` object.
+Once the values have been saved the SDK will pass new props to the connected components with the new values. The app values can then be read from the `this.props.storage.app` object.
 
 ```js
 const country = this.props.storage.app.country;
 ```
 
-The following example displays a list of countries and saves the selected value to _app_ storage.
+The following example renders a form with a list of countries. The component uses `this.props.storage` to save the selected value.
 
 ```jsx
 import React from 'react';
@@ -120,11 +126,7 @@ class PageCountry extends React.Component {
         ];
 
         return (
-            <Form
-                name="countries"
-                onSubmit={this.handleSubmit}
-                initialValues={initialValues}
-            >
+            <Form onSubmit={this.handleSubmit} initialValues={initialValues}>
                 <Select
                     label="Country"
                     id="country"
@@ -140,13 +142,17 @@ class PageCountry extends React.Component {
 export default sdkConnect(PageCountry);
 ```
 
-Use the `this.props.storage.setEntity()` method to persist values with DeskPRO which need to be associated with the current _context_. For example the currently opened ticket. The method takes an object of key/value pairs.
+@todo Explain what the code is doing
+
+----
+
+Call `this.props.storage.setEntity()` to attach values to the currently opened ticket. The method takes an object of key/value pairs.
 
 ```js
 this.props.storage.setEntity({ note: '...' });
 ```
 
-Saved values are read from the `this.props.storage.entity` object.
+Once the values have been saved they can be read from the `this.props.storage.entity` object.
 
 ```js
 const note = this.props.storage.entity.note;

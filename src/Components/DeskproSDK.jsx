@@ -6,7 +6,6 @@ import { Container, Heading, Icon, Alert, Loader, DrawerList, Drawer } from 'des
 import { buildConnectedProps, dpappPropType, storePropType } from '../utils/props';
 import * as sdkActions from '../actions/sdkActions';
 import Route from '../utils/route';
-import WaitSync from '../utils/wait';
 import AppIcon from './AppIcon';
 
 /**
@@ -77,93 +76,106 @@ class DeskproSDK extends React.Component {
    * Invoked immediately before mounting occurs
    */
   componentDidMount = () => {
-    const sync = new WaitSync(() => {
-      this.props.dispatch(sdkActions.ready());
-    });
-
-    this.bootstrapMe(sync);
-    this.bootstrapTabData(sync);
-    this.bootstrapStorage(sync);
-    sync.resolve();
+    const promises = [
+      this.bootstrapMe(),
+      this.bootstrapTabData(),
+      ...this.bootstrapStorage()
+    ];
+    Promise.all(promises)
+      .then(() => {
+        return this.props.dispatch(sdkActions.ready());
+      }).catch((error) => {
+        return this.props.dispatch(sdkActions.error(error));
+      });
   };
 
   /**
    * Fetches the "me" data for the user
    *
-   * @param {WaitSync} sync
+   * @returns {Promise}
    */
-  bootstrapMe = (sync) => {
-    const { dpapp, dispatch } = this.props;
-
-    sync.incr();
-    dpapp.restApi.get('/me')
+  bootstrapMe = () => {
+    return this.props.dpapp.restApi.get('/me')
       .then((resp) => {
-        sync.decr();
-        return dispatch(sdkActions.me(resp.body.data.person));
-      })
-      .catch((error) => {
-        sync.decr();
-        dispatch(sdkActions.error(error));
+        try {
+          return Promise.resolve(
+            this.props.dispatch(sdkActions.me(resp.body.data.person))
+          );
+        } catch (e) {
+          console.warn(e); // eslint-disable-line no-console
+          return Promise.resolve({});
+        }
       });
   };
 
   /**
    * Fetches the data for the current tab
    *
-   * @param {WaitSync} sync
+   * @returns {Promise}
    */
-  bootstrapTabData = (sync) => {
-    const { dpapp, dispatch } = this.props;
-
-    sync.incr();
-    dpapp.context.getTabData()
+  bootstrapTabData = () => {
+    return this.props.dpapp.context.getTabData()
       .then((resp) => {
-        sync.decr();
-        return dispatch(sdkActions.tabData(resp.api_data));
-      })
-      .catch((error) => {
-        sync.decr();
-        dispatch(sdkActions.error(error));
+        try {
+          return Promise.resolve(
+            this.props.dispatch(sdkActions.tabData(resp.api_data))
+          );
+        } catch (e) {
+          console.warn(e); // eslint-disable-line no-console
+          return Promise.resolve({});
+        }
       });
   };
 
   /**
    * Fetches the manifest storage values
    *
-   * @param {WaitSync} sync
+   * @returns {Promise[]}
    */
-  bootstrapStorage = (sync) => {
+  bootstrapStorage = () => {
     const { dpapp, dispatch } = this.props;
 
-    if (dpapp.manifest.storage && dpapp.manifest.storage.length > 0) {
+    const promises = [];
+    const items = dpapp.manifest.storage || dpapp.manifest.state;
+    if (items && items.length > 0) {
       const appKeys    = [];
       const entityKeys = [];
       const oauthKeys  = [];
 
-      dpapp.manifest.storage.forEach((item) => {
+      items.forEach((item) => {
         if (item.name.indexOf('oauth:') === 0) {
-          oauthKeys.push(item.name.replace('oauth:', ''));
+          oauthKeys.push(
+            item.name.replace('oauth:', '')
+          );
         } else if (item.name.indexOf('entity:') === 0) {
-          entityKeys.push(item.name.replace('entity:', ''));
+          entityKeys.push(
+            item.name.replace('entity:', '')
+          );
         } else {
-          appKeys.push(item.name.replace('app:', ''));
+          appKeys.push(
+            item.name.replace('app:', '')
+          );
         }
       });
 
       if (appKeys.length > 0) {
-        sync.incr();
-        dispatch(sdkActions.appGetStorage(appKeys, sync.decr));
+        promises.push(
+          dispatch(sdkActions.appGetStorage(appKeys))
+        );
       }
       if (entityKeys.length > 0) {
-        sync.incr();
-        dispatch(sdkActions.entityGetStorage(entityKeys, sync.decr));
+        promises.push(
+          dispatch(sdkActions.entityGetStorage(entityKeys))
+        );
       }
-      if (oauthKeys.length > 0) {
-        for (let i = 0; i < oauthKeys.length; i += 1) {
-          dispatch(sdkActions.oauthGetSettings(oauthKeys[i]));
-        }
-      }
+      oauthKeys.forEach((key) => {
+        promises.push(
+          dispatch(sdkActions.oauthGetSettings(key))
+        );
+      });
     }
+
+    return promises;
   };
 
   /**
