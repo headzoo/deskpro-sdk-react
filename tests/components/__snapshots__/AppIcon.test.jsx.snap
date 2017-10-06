@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppIcon hides the badge 1`] = `
+<div
+  style={
+    Object {
+      "marginRight": 6,
+      "marginTop": 6,
+      "position": "relative",
+    }
+  }
+>
+  <img
+    src="../assets/icon.png"
+    style={
+      Object {
+        "border": 0,
+        "height": 16,
+        "width": 16,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`AppIcon renders a badge 1`] = `
+<div
+  style={
+    Object {
+      "marginRight": 6,
+      "marginTop": 6,
+      "position": "relative",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "position": "absolute",
+        "right": -10,
+        "top": -13,
+      }
+    }
+  >
+    <div
+      className="dp-badge dp-badge--danger dp-bg--danger dp-circle-badge"
+    >
+      3
+    </div>
+  </div>
+  <img
+    src="../assets/icon.png"
+    style={
+      Object {
+        "border": 0,
+        "height": 16,
+        "width": 16,
+      }
+    }
+  />
+</div>
+`;

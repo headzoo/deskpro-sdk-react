@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinkButton renders a button 1`] = `
+<button
+  className="dp-button dp-button--l dp-button--primary dp-button--shape-default"
+  disabled={false}
+  onClick={[Function]}
+>
+  Index
+</button>
+`;
