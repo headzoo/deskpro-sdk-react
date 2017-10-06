@@ -8,12 +8,14 @@ repo_url: "https://github.com/DeskproApps/sdk-react"
 copyright: "Copyright 2001 – 2017 Deskpro Ltd. All rights reserved."
 pages:
   - Overview:  "index.md"
-  - Tutorials:
-    - Basic: "pages/tutorials/basic.md"
-  - Forms: "pages/forms.md"
+  - Manifest: "pages/manifest.md"
+  - Props: "pages/props.md"
   - Components:
     - DeskproSDK: "pages/components/DeskproSDK.md"
     - Link:       "pages/components/Link.md"
     - LinkButton: "pages/components/LinkButton.md"
+    - Forms:      "pages/components/forms.md"
+  - Tutorials:
+    - Basic: "pages/tutorials/basic.md"
   - API:
     - Actions: "pages/api/actions.md"

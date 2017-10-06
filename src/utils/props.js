@@ -3,102 +3,192 @@ import * as sdkActions from '../actions/sdkActions';
 import Storage from './storage';
 import Route from './route';
 
+const { shape, object, string, func, number, bool, array } = PropTypes;
+
 /**
  * Defines the prop type for dpapp
  */
-export const dpappPropType = PropTypes.shape({
-  properties:  PropTypes.object,
-  environment: PropTypes.object,
-  settings:    PropTypes.object,
-  context:     PropTypes.object,
-  ui:          PropTypes.object,
-  restApi:     PropTypes.object,
-  storage:     PropTypes.object,
-  oauth:       PropTypes.object,
-  appId:       PropTypes.string,
-  appTitle:    PropTypes.string,
-  packageName: PropTypes.string,
-  instanceId:  PropTypes.string,
-  refresh:     PropTypes.func,
-  unload:      PropTypes.func
+export const dpappPropType = shape({
+  properties:  object,
+  environment: object,
+  settings:    object,
+  context:     object,
+  ui:          object,
+  restApi:     object,
+  storage:     object,
+  oauth:       object,
+  appId:       string,
+  appTitle:    string,
+  packageName: string,
+  instanceId:  string,
+  refresh:     func,
+  unload:      func
 });
 
 /**
  * Defines the prop type for dpapp.ui
  */
-export const uiPropType = PropTypes.shape({
-  error:          PropTypes.func,
-  collapse:       PropTypes.func,
-  expand:         PropTypes.func,
-  hide:           PropTypes.func,
-  show:           PropTypes.func,
-  hideBadgeCount: PropTypes.func,
-  showBadgeCount: PropTypes.func,
-  hideLoading:    PropTypes.func,
-  showLoading:    PropTypes.func,
-  hideMenu:       PropTypes.func,
-  showMenu:       PropTypes.func,
-  isCollapsed:    PropTypes.func,
-  isExpanded:     PropTypes.func,
-  isHidden:       PropTypes.func,
-  isLoading:      PropTypes.func,
-  isReady:        PropTypes.func,
-  isVisible:      PropTypes.func
+export const uiPropType = shape({
+  error:          func,
+  collapse:       func,
+  expand:         func,
+  hide:           func,
+  show:           func,
+  hideBadgeCount: func,
+  showBadgeCount: func,
+  hideLoading:    func,
+  showLoading:    func,
+  hideMenu:       func,
+  showMenu:       func,
+  isCollapsed:    func,
+  isExpanded:     func,
+  isHidden:       func,
+  isLoading:      func,
+  isReady:        func,
+  isVisible:      func
 });
 
 /**
  * Defines the storage prop type
  */
-export const storagePropType = PropTypes.shape({
-  app:       PropTypes.object,
-  entity:    PropTypes.object,
-  getApp:    PropTypes.func,
-  setApp:    PropTypes.func,
-  getEntity: PropTypes.func,
-  setEntity: PropTypes.func
+export const storagePropType = shape({
+  app:       object,
+  entity:    object,
+  getApp:    func,
+  setApp:    func,
+  getEntity: func,
+  setEntity: func
 });
 
 /**
  * Defines the Redux store prop type
  */
-export const storePropType = PropTypes.shape({
-  getState:       PropTypes.func,
-  dispatch:       PropTypes.func,
-  subscribe:      PropTypes.func,
-  replaceReducer: PropTypes.func
+export const storePropType = shape({
+  getState:       func,
+  dispatch:       func,
+  subscribe:      func,
+  replaceReducer: func
 });
 
 /**
  * Defines the "me" prop type
  */
-export const mePropType = PropTypes.shape({
-  id:              PropTypes.number,
-  avatar:          PropTypes.object,
-  can_admin:       PropTypes.bool,
-  can_agent:       PropTypes.bool,
-  can_billing:     PropTypes.bool,
-  is_agent:        PropTypes.bool,
-  is_confirmed:    PropTypes.bool,
-  is_contact:      PropTypes.bool,
-  is_deleted:      PropTypes.bool,
-  is_disabled:     PropTypes.bool,
-  is_user:         PropTypes.bool,
-  was_agent:       PropTypes.bool,
-  online:          PropTypes.bool,
-  labels:          PropTypes.array,
-  teams:           PropTypes.array,
-  phone_numbers:   PropTypes.array,
-  date_created:    PropTypes.string,
-  date_last_login: PropTypes.string,
-  name:            PropTypes.string,
-  display_name:    PropTypes.string,
-  first_name:      PropTypes.string,
-  last_name:       PropTypes.string,
-  primary_email:   PropTypes.string,
-  emails:          PropTypes.array,
-  gravatar_url:    PropTypes.string,
-  tickets_count:   PropTypes.number,
-  timezone:        PropTypes.string
+export const mePropType = shape({
+  id:              number,
+  avatar:          object,
+  can_admin:       bool,
+  can_agent:       bool,
+  can_billing:     bool,
+  is_agent:        bool,
+  is_confirmed:    bool,
+  is_contact:      bool,
+  is_deleted:      bool,
+  is_disabled:     bool,
+  is_user:         bool,
+  was_agent:       bool,
+  online:          bool,
+  labels:          array,
+  teams:           array,
+  phone_numbers:   array,
+  date_created:    string,
+  date_last_login: string,
+  name:            string,
+  display_name:    string,
+  first_name:      string,
+  last_name:       string,
+  primary_email:   object,
+  emails:          array,
+  gravatar_url:    string,
+  tickets_count:   number,
+  timezone:        string
+});
+
+/**
+ * Defines the tabData prop type
+ */
+export const tabDataPropType = shape({
+  id:                             number,
+  is_hold:                        bool,
+  access_code:                    string,
+  access_code_email_body_token:   string,
+  access_code_email_header_token: string,
+  agent:                          object,
+  attachments:                    array,
+  auth:                           string,
+  category:                       object,
+  count_agent_replies:            number,
+  count_user_replies:             number,
+  current_user_waiting:           number,
+  current_user_waiting_work:      number,
+  custom_data:                    array,
+  date_agent_waiting:             string,
+  date_agent_waiting_ts:          number,
+  date_agent_waiting_ts_ms:       number,
+  date_archived:                  string,
+  date_archived_ts:               number,
+  date_archived_ts_ms:            number,
+  date_created:                   string,
+  date_created_ts:                number,
+  date_created_ts_ms:             number,
+  date_feedback_rating_ts:        number,
+  date_feedback_rating_ts_ms:     number,
+  date_first_agent_assign:        string,
+  date_first_agent_assign_ts:     number,
+  date_first_agent_assign_ts_ms:  number,
+  date_first_agent_reply:         string,
+  date_first_agent_reply_ts:      number,
+  date_first_agent_reply_ts_ms:   number,
+  date_last_agent_reply:          string,
+  date_last_agent_reply_ts:       number,
+  date_last_agent_reply_ts_ms:    number,
+  date_last_user_reply:           string,
+  date_last_user_reply_ts:        number,
+  date_last_user_reply_ts_ms:     number,
+  date_locked:                    string,
+  date_locked_ts:                 number,
+  date_locked_ts_ms:              number,
+  date_on_hold:                   string,
+  date_on_hold_ts:                number,
+  date_on_hold_ts_ms:             number,
+  date_resolved:                  string,
+  date_resolved_ts:               number,
+  date_resolved_ts_ms:            number,
+  date_status:                    string,
+  date_status_ts:                 number,
+  date_status_ts_ms:              number,
+  date_user_waiting:              string,
+  date_user_waiting_ts:           number,
+  date_user_waiting_ts_ms:        number,
+  department:                     object,
+  has_attachments:                bool,
+  hidden_status:                  string,
+  labels:                         array,
+  language:                       object,
+  organization:                   object,
+  original_subject:               string,
+  parent_ticket:                  string,
+  participants:                   array,
+  person:                         object,
+  person_email:                   object,
+  priority:                       string,
+  product:                        object,
+  ref:                            string,
+  sent_to_address:                string,
+  status:                         string,
+  subject:                        string,
+  ticket_hash:                    string,
+  ticket_slas:                    object,
+  total_to_first_reply:           number,
+  total_to_first_reply_work:      number,
+  total_to_resolution:            number,
+  total_to_resolution_work:       number,
+  total_user_waiting:             number,
+  total_user_waiting_real:        number,
+  total_user_waiting_work:        number,
+  urgency:                        number,
+  waiting_times:                  array,
+  workflow:                       object,
+  worst_sla_status:               string
 });
 
 /**
@@ -155,7 +245,7 @@ export function buildConnectedProps(props) {
   const ui      = dpapp.ui;
 
   oauth.providers = sdk.oauth.providers;
-  ui.error = (error) => {
+  ui.error        = (error) => {
     dispatch(sdkActions.error(error));
   };
 

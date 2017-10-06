@@ -57,9 +57,10 @@ const dpappProvider = (WrappedComponent) => {
  *
  * @param {React.Component} WrappedComponent
  * @param {Function} [mapStateToProps]
+ * @param {Function} [mapDispatchToProps]
  * @returns {React.Component}
  */
-export const sdkConnect = (WrappedComponent, mapStateToProps) => {
+export const sdkConnect = (WrappedComponent, mapStateToProps, mapDispatchToProps) => {
   const mapper = (state) => {
     const sdk  = Object.assign({}, state.sdk);
     const form = Object.assign({}, state.form);
@@ -76,5 +77,5 @@ export const sdkConnect = (WrappedComponent, mapStateToProps) => {
     };
   };
 
-  return connect(mapper)(dpappProvider(WrappedComponent));
+  return connect(mapper, mapDispatchToProps)(dpappProvider(WrappedComponent));
 };
