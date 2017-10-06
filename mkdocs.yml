@@ -12,6 +12,7 @@ pages:
   - Props: "pages/props.md"
   - Components:
     - DeskproSDK: "pages/components/DeskproSDK.md"
+    - Routes:     "pages/components/Routes.md"
     - Link:       "pages/components/Link.md"
     - LinkButton: "pages/components/LinkButton.md"
     - Forms:      "pages/components/forms.md"
