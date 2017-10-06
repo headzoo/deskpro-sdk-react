@@ -23,7 +23,7 @@ import * as types from './actionTypes';
  * @param {*} obj
  * @returns {Array}
  */
-function createBatchStorage(obj) {
+export function createBatchStorage(obj) {
   const values = [];
   Object.keys(obj).forEach((key) => {
     values.push([key, obj[key]]);
@@ -192,7 +192,7 @@ export function oauthProvider(provider, settings) {
  * });
  * ```
  *
- * @param {string} key
+ * @param {string|object} key
  * @param {*} [value]
  * @param {Function} [cb]
  * @returns {Function}
@@ -287,7 +287,7 @@ export function appGetStorage(key, defaultValue = null, cb = () => {}) {
  * });
  * ```
  *
- * @param {string} key
+ * @param {string|object} key
  * @param {*} [value]
  * @param {Function} [cb]
  * @returns {Function}
