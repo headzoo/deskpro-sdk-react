@@ -32,8 +32,6 @@ export default class Storage {
   };
 
   /**
-   * @todo Possibly remove this? Values can be obtained by props. This shouldn't be called directly.
-   *
    * @param {string} key
    * @param {*} defaultValue
    */
@@ -50,8 +48,6 @@ export default class Storage {
   };
 
   /**
-   * @todo Possibly remove this? Values can be obtained by props. This shouldn't be called directly.
-   *
    * @param {string} key
    * @param {*} defaultValue
    */

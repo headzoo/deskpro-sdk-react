@@ -1,7 +1,7 @@
 import Route from '../../src/utils/route';
 import * as types from '../../src/actions/actionTypes';
 
-test('Route create location and param properties', () => {
+test('Route creates location and param properties', () => {
   const dispatch = jest.fn();
   const data     = {
     location: 'testing',
