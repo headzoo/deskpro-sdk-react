@@ -1,6 +1,6 @@
 Overview
 ========
-The SDK automatically passes a number of objects to your components via props. Some of the SDK props contain values about the running application and current context, and some provide methods to interact with the DeskPRO application. For instance the [storage]() prop which allows developers to persist values with the DeskPRO application, and the [oauth]() prop for authenticating with remote services.
+The SDK automatically passes a number of objects to your components via props. Some of the SDK props contain information about the running application and current context, and some provide methods to interact with DeskPRO. For instance the [storage]() prop which allows developers to persist values with the DeskPRO application, and the [oauth]() prop for authenticating with remote services.
 
 This document describes the SDK props and how to use them.
 
