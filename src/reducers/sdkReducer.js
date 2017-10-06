@@ -133,8 +133,11 @@ function reduceToRoute(state, action) {
  * @returns {*}
  */
 function reduceAppValue(state, action) {
-  const app = Object.assign({}, state.storage.app);
+  if (!action.key) {
+    return state;
+  }
 
+  const app = Object.assign({}, state.storage.app);
   if (typeof action.key === 'object') {
     Object.keys(action.key).forEach((k) => {
       const key = splitKey(k);
@@ -159,8 +162,11 @@ function reduceAppValue(state, action) {
  * @returns {*}
  */
 function reduceEntityValue(state, action) {
-  const entity = Object.assign({}, state.storage.entity);
+  if (!action.key) {
+    return state;
+  }
 
+  const entity = Object.assign({}, state.storage.entity);
   if (typeof action.key === 'object') {
     Object.keys(action.key).forEach((k) => {
       const key   = splitKey(k);

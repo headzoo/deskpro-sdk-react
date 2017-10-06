@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Routes renders the defaultRoute 1`] = `
+<div>
+  Page1
+</div>
+`;
+
+exports[`Routes renders the matching component 1`] = `
+<div>
+  Page2
+</div>
+`;
