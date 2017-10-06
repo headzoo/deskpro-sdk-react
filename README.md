@@ -1,6 +1,11 @@
 DeskPRO React SDK
 =================
 
+## Installing
+
+`npm install --save deskpro-sdk-react`
+
+## Basic Tutorial
 This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket.
 
 ![screenshot](docs/images/tutorials/basic-1.png)
