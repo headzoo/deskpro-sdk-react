@@ -11,11 +11,14 @@ import configureRootReducer from '../reducers/rootReducer';
  * // Creates the default sdk store.
  * const store = configureStore(dpapp);
  *
+ * // Adds additional middleware (logger) to the store.
+ * const store = configureStore(dpapp, [logger]);
+ *
  * // Adds an additional reducer named "custom".
  * const customReducer = (state, action) => {
  *  return state;
  * }
- * const store = configureStore(dpapp, {
+ * const store = configureStore(dpapp, [], {
  *  custom: customReducer
  * });
  *
@@ -26,17 +29,18 @@ import configureRootReducer from '../reducers/rootReducer';
  * const initialState = {
  *  custom: { foo: 'bar' }
  * }
- * const store = configureStore(dpapp, {
+ * const store = configureStore(dpapp, [], {
  *  custom: customReducer
  * }, initialState);
  * ```
  *
- * @param {*} dpapp          The sdk-core dpapp instance
- * @param {*} [reducers]     Additional reducers
- * @param {*} [initialState] Additional initial state
+ * @param {*} dpapp            The sdk-core dpapp instance
+ * @param {Array} [middleware] Additional middleware
+ * @param {*} [reducers]       Additional reducers
+ * @param {*} [initialState]   Additional initial state
  * @returns {*}
  */
-export default function configureStore(dpapp, reducers = {}, initialState = {}) {
+export default function configureStore(dpapp, middleware = [], reducers = {}, initialState = {}) {
   let composeEnhancers = compose;
   if (dpapp.environment === 'development') {
     if (window.parent && window.parent.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
@@ -46,9 +50,20 @@ export default function configureStore(dpapp, reducers = {}, initialState = {}) 
     }
   }
 
+  if (!Array.isArray(middleware)) {
+    initialState = reducers;   // eslint-disable-line no-param-reassign
+    reducers     = middleware; // eslint-disable-line no-param-reassign
+    middleware   = [];         // eslint-disable-line no-param-reassign
+  }
+
+  const appliedMiddleware = [
+    thunk.withExtraArgument(dpapp),
+    ...middleware
+  ];
+
   return createStore(
     configureRootReducer(reducers),
     initialState,
-    composeEnhancers(applyMiddleware(thunk.withExtraArgument(dpapp)))
+    composeEnhancers(applyMiddleware(...appliedMiddleware))
   );
 }

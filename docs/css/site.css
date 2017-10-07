@@ -40,6 +40,10 @@ pre > code {
   font-size: 14px;
 }
 
+img {
+  max-width: 100%;
+}
+
 .bs-sidebar .nav > .active > a,
 .bs-sidebar .nav > .active:hover > a,
 .bs-sidebar .nav > .active:focus > a {

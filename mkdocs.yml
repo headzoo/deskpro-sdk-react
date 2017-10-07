@@ -18,5 +18,6 @@ pages:
     - Forms:      "pages/components/forms.md"
   - Tutorials:
     - Basic: "pages/tutorials/basic.md"
+    - Using Redux: "pages/tutorials/redux.md"
   - API:
     - Actions: "pages/api/actions.md"
