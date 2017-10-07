@@ -1,6 +1,6 @@
-Basic Tutorial
-==============
-This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket.
+Overview
+========
+This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket. Before you begin ensure that DeskPRO is installed and running on your local computer.
 
 ![screenshot](/images/tutorials/basic-1.png)
 
@@ -81,12 +81,10 @@ $dp-styles-font-path: "~deskpro-components/src/styles/fonts/";
 ```
 
 ### Step 5. Run the dev server
-Start the built in dev server.
+Start the dev server.
 
 ```
 npm run dev
 ```
 
-Now open your browser to [https://deskpro-dev/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
-
-
+Now open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).

@@ -17,7 +17,8 @@ pages:
     - LinkButton: "pages/components/LinkButton.md"
     - Forms:      "pages/components/forms.md"
   - Tutorials:
-    - Basic: "pages/tutorials/basic.md"
-    - Using Redux: "pages/tutorials/redux.md"
+    - Basic:         "pages/tutorials/basic.md"
+    - Settings Form: "pages/tutorials/settings.md"
+    - Using Redux:   "pages/tutorials/redux.md"
   - API:
     - Actions: "pages/api/actions.md"

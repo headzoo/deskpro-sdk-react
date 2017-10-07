@@ -9,7 +9,7 @@ export default {
       providers: {}
     },
     route: {
-      location: '',
+      location: 'index',
       params:   {}
     },
     storage: {
