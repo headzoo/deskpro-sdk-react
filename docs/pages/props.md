@@ -1,13 +1,11 @@
 Overview
 ========
-The SDK automatically passes a number of objects to your components via props. Some of the SDK props contain information about the running application and current context, and some provide methods to interact with DeskPRO. For instance the [storage]() prop which allows developers to persist values with the DeskPRO application, and the [oauth]() prop for authenticating with remote services.
-
-This document describes the SDK props and how to use them.
+The SDK automatically passes a number of objects to your components via props. Some of the SDK props contain information about the running application and current context, and some provide methods to interact with DeskPRO. For instance the [storage](#storage) prop which allows developers to persist values with the DeskPRO application, and the [me](#me) prop which contains information about the person using the app.
 
 ## Connecting your components
 Components which need access to the SDK props must be _connected_ to the SDK. The [DeskproSDK component](/pages/components/DeskproSDK/) automatically connects the wrapped component.
 
-The `<App />` component in the following example will have the props passed to it.
+The `<App />` component in the following example will have all SDK props passed to it because it's wrapped by the `DeskproSDK` component.
 
 ```jsx
 ReactDOM.render(
@@ -18,7 +16,7 @@ ReactDOM.render(
 );
 ```
 
-The `sdkConnect` function connects the other components in your app which need the SDK props. Its usage is optional, and is only required when a component needs access to the props.
+Only the app root component gets wrapped by `DeskproSDK`. The other components in your app will use the `sdkConnect` function to connect them to the SDK props. Its usage is optional, and is only required when a component needs access to the props.
 
 ```jsx
 import React from 'react';
@@ -84,15 +82,11 @@ export default sdkConnect(PageSettings, mapStateToProps);
 -----
 
 ## Storage
-Connected components receive `this.props.storage`, an object which reads and writes values to the DeskPRO database in order to persist them from one invocation of the app and another.
+`this.props.storage`
 
-Two mechanisms are provided for storing values. One for storing global "app" values, and one for attaching "entity" values to the currently opened ticket.
+An object which reads and writes values to the DeskPRO database in order to persist them from one invocation of the app and another. Two mechanisms are provided for storing values. One for storing global "app" values, and one for attaching "entity" values to the currently opened ticket.
 
-----
-
-Call `this.props.storage.setApp()` to persist global values which will be bound the app. For instance app settings or user information.
-
-The method takes an object of key/value pairs.
+Call `this.props.storage.setApp()` to persist global values which will be bound the app. For instance app settings or user information. The method takes an object of key/value pairs.
 
 ```js
 this.props.storage.setApp({ country: 'uk' });
@@ -112,10 +106,17 @@ import { sdkConnect } from 'deskpro-sdk-react';
 import { Form, Select, Button } from 'deskpro-components/lib/bindings/redux-form';
 
 class PageCountry extends React.Component {
+    /**
+     * Receives the submitted form values and saves them to
+     * app storage
+     */
     handleSubmit = (values) => {
         this.props.storage.setApp({ country: values.country });
     };
     
+    /**
+     * @returns {XML}
+     */
     render() {
         const initialValues = {
             country: this.props.storage.app.country
@@ -142,15 +143,13 @@ class PageCountry extends React.Component {
 export default sdkConnect(PageCountry);
 ```
 
-@todo Explain what the code is doing
-
-----
-
-Call `this.props.storage.setEntity()` to attach values to the currently opened ticket. The method takes an object of key/value pairs.
+Call `this.props.storage.setEntity()` to attach values to the currently opened ticket. Unlike the global app values, entity values are unique to each ticket. The method takes an object of key/value pairs.
 
 ```js
 this.props.storage.setEntity({ note: '...' });
 ```
+
+Under the hood the SDK saves the value as "note:{ticket_id}". Which means the value of "note" is unique to the ticket the agent is viewing.
 
 Once the values have been saved they can be read from the `this.props.storage.entity` object.
 
@@ -158,32 +157,98 @@ Once the values have been saved they can be read from the `this.props.storage.en
 const note = this.props.storage.entity.note;
 ```
 
-----
-
-The storage component includes `this.props.storage.onSubmitApp()` and `this.props.storage.onSubmitEntity()`, each of which save form values to storage. The values are saved to storage using the `name` prop given to the form.
-
-In the following example the form values will be saved to storage using the "settings" key.
+The following example allows agents to attach notes to the opened ticket. It shows the current notes with a form to create a new note.
 
 ```jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Textarea, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class Notes extends React.Component {
+    /**
+     * Receives the submitted form values and saves them to
+     * app storage
+     */
+    handleSubmit = (values) => {
+        const { storage } = this.props;
+        const notes = storage.entity.notes;
+        
+        // Clone the existing notes or create a new array if the ticket
+        // doesn't have any existing notes.
+        const newNotes = (notes || []).slice(0);
+        newNotes.push(values.note);
+        
+        // Attach the notes to the open ticket. This will overwrite the
+        // existing value.
+        storage.setEntity({ notes: newNotes });
+    };
+    
+    /**
+     * @returns {XML}
+     */
+    render() {
+        const { storage } = this.props;
+        const notes = storage.entity.notes;
+
+        return (
+            <div>
+                <h1>Notes</h1>
+                <ul>
+                    {notes.map((note) => (
+                        <li>{note}</li>
+                    ))}
+                </ul>
+                
+                <Form onSubmit={this.handleSubmit}>
+                    <Textarea
+                        label="Add note"
+                        id="note"
+                        name="note"
+                    />
+                    <Button>Submit</Button>
+                </Form>
+            
+            </div>
+        );
+    }
+}
+
+export default sdkConnect(Notes);
+```
+
+The SDK can automatically save form values to app/entity storage with `this.props.storage.onSubmitApp` and `this.props.storage.onSubmitEntity`. Use them as the form `onSubmit` handler, and the form values will be written to storage using the name of the form as the storage key.
+
+The following example uses `this.props.storage.onSubmitApp` to automatically save the form values to app storage. The values will be saved using the key "settings".
+
+```jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
 class PageSettings extends React.Component {
   render() {
     const { storage } = this.props;
-
+    const settings = storage.app.settings || {};
+    
+    /**
+     * @returns {XML}
+     */
     return (
-        <Form
-          name="settings"
-          onSubmit={storage.onSubmitApp}
-        >
-          <Input
-            id="clientId"
-            name="clientId"
-          />
-        </Form>
+        <div>
+            <div>Client ID: {settings.clientId}</div>
+            <Form name="settings" onSubmit={storage.onSubmitApp}>
+              <Input
+                id="clientId"
+                name="clientId"
+              />
+            </Form>
+            <Button>Submit</Button>
+        </div>
     );
 }
 ```
 
-An optional callback may be passed to the submit handlers which is called with the form values after they have been saved.
+An optional callback may be passed to the submit handlers which is called after the form values have been successfully written to storage.
 
 ```jsx
 class PageSettings extends React.Component {
@@ -195,6 +260,9 @@ class PageSettings extends React.Component {
         this.props.route.to('index');
     };
     
+    /**
+     * @returns {XML}
+     */
     render() {
         const { storage } = this.props;
         
@@ -213,13 +281,14 @@ class PageSettings extends React.Component {
 }
 ```
 
+-----
+
 ## Route
-Connected components receive the prop `this.props.route`, a light-weight router which may be used to switch between pages and tabs within an application. The route object contains two properties:
+`this.props.route`
 
-* `this.props.route.location` - A string with the name of the current page or tab
-* `this.props.route.params` - An object of key/value pairs associated with the location
+A light-weight router which is used to display different "pages" within an app. Pages within apps do not have URLs like web pages, but they can be given simple labels like "settings" or "index", and `this.props.route` can then be used to switch between them.
 
-The following example uses the route object and a `switch` statement to display a different page based on the current location.
+The following example uses a `switch` statement to display a different page depending on the current location.
 
 ```js
 import React from 'react';
@@ -242,6 +311,11 @@ class Content extends React.Component {
 
 export default sdkConnect(Content);
 ```
+
+The object contains two properties:
+
+* `this.props.route.location` - A string with the name of the current page
+* `this.props.route.params` - An object of key/value pairs associated with the location
 
 The [Routes](/pages/components/Routes) and [Route](/pages/components/Routes) components may be used in place of a `switch` statement.
 
@@ -266,7 +340,7 @@ class App extends React.Component {
 export default sdkConnect(App);
 ```
 
-Apps change the location by calling the `this.props.route.to()` method, which takes the name of the new location.
+The location is changed by calling `this.props.route.to()` with the name of a page.
 
 ```js
 this.props.route.to('index');
@@ -278,27 +352,121 @@ Params may also be passed along with the location.
 this.props.route.to('account', { id: 5 });
 ```
 
+The following example renders two pages. An "index" page with a form where a note may be entered, and a "note" page which displays the note.
+
+```jsx
+// PageIndex.jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageIndex extends React.Component {
+    /**
+     * Switches to the "note" page, passing the note value along with
+     * the location.
+     */
+    handleSubmit = (values) => {
+        this.props.route.to('note', { note: values.note });
+    };
+    
+    /**
+     * @returns {XML}
+     */
+    render() {
+        return (
+            <div>
+                <Form onSubmit={this.handleSubmit}>
+                    <Input
+                        label="Note:"
+                        id="note"
+                        name="note"
+                    />
+                    <Button>Submit</Button>
+                </Form>
+            </div>
+        );
+    }
+}
+
+export default sdkConnect(PageIndex);
+```
+
+```jsx
+// PageNote.jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+
+class PageNote extends React.Component {
+    /**
+     * Changes to the index page when the button is clicked.
+     */
+    handleClick = () => {
+        this.props.route.to('index');
+    };
+    
+    /**
+     * @returns {XML}
+     */
+    render() {
+        const { route } = this.props;
+        
+        return (
+            <div>
+                <p>{route.params.note}</p>
+                <button onClick={this.handleClick}>
+                    To index page
+                </button>
+            </div>
+        );
+    }
+}
+
+export default sdkConnect(PageNote);
+```
+
+The `Routes` and `Route` components are used to switch between the two pages.
+
+```jsx
+// App.jsx
+import React from 'react';
+import { Routes, Route } from 'deskpro-sdk-react';
+import PageNote from './PageNote';
+import PageIndex from './PageIndex';
+
+const App = () => (
+  <Routes>
+    <Route location="note" component={PageNote} />
+    <Route location="index" component={PageIndex} />
+  </Routes>
+);
+```
+
 Connected components may also change the location using the [Link](/pages/components/Link) and [LinkButton](/pages/components/LinkButton) components.
 
 ```js
 import React from 'react';
-import { sdkConnect, Link } from 'deskpro-sdk-react';
+import { sdkConnect, Link, LinkButton } from 'deskpro-sdk-react';
 
 class Menu extends React.Component {
     render() {
         return (
-            <ul>
-                <li>
-                    <Link to="account" params={{ id: 5 }}>
-                        Account
-                    </Link>
-                </li>
-                <li>
-                    <Link to="index">
-                        Home
-                    </Link>
-                </li>
-            </ul>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="settings">
+                            Settings
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="account" params={{ id: 5 }}>
+                            Account
+                        </Link>
+                    </li>
+                </ul>
+                <LinkButton to="index">
+                    Home
+                </LinkButton>
+            </nav>
         );
     }
 }
@@ -306,9 +474,12 @@ class Menu extends React.Component {
 export default sdkConnect(Menu);
 ```
 
+-----
 
 ## OAuth
-Connected components receive the prop `this.props.oauth`, an object which authenticates with remote services and stores oauth credentials.
+`this.props.oauth`
+
+An object which authenticates with remote services and stores oauth credentials.
 
 Save oauth connection settings.
 
@@ -338,11 +509,35 @@ Read the app oauth provider settings.
 const provider_settings = this.props.oauth.providers.provider_name;
 ```
 
-## Form
-Connected components receive the prop `this.props.form`, an object of the values saved in the _store_ for each submitted form. See the [forms documentation](/pages/components/forms) for more information.
+-----
 
 ## TabData
-Connected components receive the prop `this.props.tabData`, an object containing the details of the currently opened ticket. The object contains the following properties:
+`this.props.tabData`
+
+An object which is populated with the details of the currently opened ticket.
+
+```js
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+
+class TicketInfo extends React.Component {
+    render() {
+        const { tabData } = this.props;
+        
+        return (
+            <ul>
+                <li>ID: {tabData.id}</li>
+                <li>Created: {tabData.date_created}</li>
+                <li>Subject: {tabData.subject}</li>
+            </ul>
+        );
+    }
+}
+
+export default sdkConnect(Menu);
+```
+
+The object contains the following properties:
 
 ```js
 {
@@ -431,8 +626,33 @@ Connected components receive the prop `this.props.tabData`, an object containing
 }
 ```
 
+-----
+
 ## Me
-Connected components receive the prop `this.props.me`, an object containing the details of the agent/admin using the app. The object contains the following properties:
+`this.props.me`
+
+An object which is populated with the details of the agent/admin using the app.
+
+```js
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+
+class Page extends React.Component {
+    render() {
+        const { me } = this.props;
+        
+        return (
+            <div>
+                Welcome, {me.name}!
+            </div>
+        );
+    }
+}
+
+export default sdkConnect(Menu);
+```
+
+The object contains the following properties:
 
 ```js
 {
@@ -466,8 +686,16 @@ Connected components receive the prop `this.props.me`, an object containing the 
 }
 ```
 
+-----
+
 ## UI
-Connected components receive the prop `this.props.ui`, an object containing methods which allow you to manipulate the UI.
+`this.props.ui`
+
+An object containing methods which allow you to manipulate the UI.
+
+-----
 
 ## DPApp
-Connected components receive the prop `this.props.dpapp`, an object...
+`this.props.dpapp`
+
+An object...

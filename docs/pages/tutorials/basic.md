@@ -5,6 +5,7 @@ This tutorial will walk you through creating a simple DeskPRO app which displays
 ![screenshot](/images/tutorials/basic-1.png)
 
 ### Step 1. Clone the boilerplate
+This tutorial uses the SDK boilerplate which will help get you started building apps quickly.
 
 ```
 git clone https://github.com/deskpro/deskproapps-boilerplate-react participants
@@ -13,7 +14,7 @@ npm install
 ```
 
 ### Step 2. Update the manifest
-Update the "deskpro" property in the _package.json_, which you can find in your project root. Change the "title" property to "Participants".
+Update the app configuration in the _package.json_ file found in the app root directory. Change the "title" property to "Participants". The [manifest documentation](/pages/manifest) contains more information on the configuration values.
 
 ```json
 {
@@ -33,7 +34,7 @@ Update the "deskpro" property in the _package.json_, which you can find in your 
 ```
 
 ### Step 3. Modify the app component
-Your app component can be found in the file _src/main/javascript/App.jsx_.
+Open the file found at _src/main/javascript/App.jsx_ with a text editor or IDE. This is the app main component. Edit the file to look like the following.
 
 ```jsx
 import React from 'react';

@@ -92,7 +92,7 @@ class PageSettings extends React.Component {
 export default sdkConnect(PageSettings);
 ```
 
-The form uses the [this.props.storage.onSubmitApp](/pages/props/#storage) form handler. the handler writes the form values to app storage using the form `name` prop as the storage key when the form is submitted, and then calls the `this.handleSubmit` function. That function changes to the index page.
+The form uses the [this.props.storage.onSubmitApp](/pages/props/#storage) form handler, which writes the form values to app storage using the form `name` prop as the storage key. It then calls the `this.handleSubmit` function which changes to the index page.
 
 ### Step 4. Create the index page
 Create a new source code file and save it at _src/main/javascript/PageIndex.jsx_. This page will display the values entered on the settings page.
@@ -127,10 +127,10 @@ class PageIndex extends React.Component {
 export default sdkConnect(PageSettings);
 ```
 
-The storage values saved by the settings form are read from the `this.props.storage.app.settings` object, which updates when the values change.
+The storage values saved by the settings form are read from `this.props.storage.app.settings`, which have been updated automatically when the values were written to storage.
 
 ### Step 5. Modify the app component
-Open the main app component at _src/main/javascript/App.jsx_. The [Routes and Route components](/pages/components/Routes/) are used to display either the index or settings page.
+Open the main app component at _src/main/javascript/App.jsx_. The [Routes and Route components](/pages/components/Routes/) will be used to display either the index or settings page.
 
 ```jsx
 import React from 'react';

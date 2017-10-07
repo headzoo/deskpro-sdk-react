@@ -44,6 +44,13 @@ img {
   max-width: 100%;
 }
 
+hr {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  border: 0;
+  border-top: 1px solid #d0d0d0;
+}
+
 .bs-sidebar .nav > .active > a,
 .bs-sidebar .nav > .active:hover > a,
 .bs-sidebar .nav > .active:focus > a {
