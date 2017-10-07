@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 import sdk from './sdkReducer';
 
-const rootReducer = combineReducers({
-  form,
-  sdk
-});
-
-export default rootReducer;
+export default function configureRootReducer(reducers = {}) {
+  return combineReducers({
+    form,
+    sdk,
+    ...reducers
+  });
+}

@@ -7,7 +7,7 @@ const { shape, object, string, func, number, bool, array } = PropTypes;
  */
 export const dpappPropType = shape({
   properties:  object,
-  environment: object,
+  environment: string,
   settings:    object,
   context:     object,
   ui:          object,
