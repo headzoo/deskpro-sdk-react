@@ -158,6 +158,61 @@ Once the values have been saved they can be read from the `this.props.storage.en
 const note = this.props.storage.entity.note;
 ```
 
+----
+
+The storage component includes `this.props.storage.onSubmitApp()` and `this.props.storage.onSubmitEntity()`, each of which save form values to storage. The values are saved to storage using the `name` prop given to the form.
+
+In the following example the form values will be saved to storage using the "settings" key.
+
+```jsx
+class PageSettings extends React.Component {
+  render() {
+    const { storage } = this.props;
+
+    return (
+        <Form
+          name="settings"
+          onSubmit={storage.onSubmitApp}
+        >
+          <Input
+            id="clientId"
+            name="clientId"
+          />
+        </Form>
+    );
+}
+```
+
+An optional callback may be passed to the submit handlers which is called with the form values after they have been saved.
+
+```jsx
+class PageSettings extends React.Component {
+    /**
+     * Called after the values have been saved to storage
+     */
+    handleSubmit = (values) => {
+        console.log(values);
+        this.props.route.to('index');
+    };
+    
+    render() {
+        const { storage } = this.props;
+        
+        return (
+            <Form
+              name="settings"
+              onSubmit={storage.onSubmitApp(this.handleSubmit)}
+            >
+              <Input
+                id="clientId"
+                name="clientId"
+              />
+            </Form>
+        );
+    }
+}
+```
+
 ## Route
 Connected components receive the prop `this.props.route`, a light-weight router which may be used to switch between pages and tabs within an application. The route object contains two properties:
 
