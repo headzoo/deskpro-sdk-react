@@ -1,6 +1,8 @@
 DeskPRO React SDK
 =================
 
+Online documentation is available at https://headzoo.github.io/deskpro-sdk-react.
+
 ## Installing
 
 `npm install --save deskpro-sdk-react`
