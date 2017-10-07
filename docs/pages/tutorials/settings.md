@@ -11,7 +11,7 @@ npm install
 ```
 
 ### Step 2. Update the manifest
-Update the "deskpro" property in the _package.json_, which you can find in your project root. Change the "title" property to "Settings Form".
+Update the "deskpro" property in the _package.json_, which you can find in your project root. Change the "title" property to "Settings Form". An app storage variable named "settings" is also declared under the "storage" property.
 
 ```json
 {
@@ -24,6 +24,14 @@ Update the "deskpro" property in the _package.json_, which you can find in your 
       {
         "target": "ticket-sidebar",
         "url": "html/index.html"
+      }
+    ],
+    "storage": [
+      {
+        "name": "settings",
+        "isBackendOnly": false,
+        "permRead": "EVERYBODY",
+        "permWrite": "EVERYBODY"
       }
     ]
   }
