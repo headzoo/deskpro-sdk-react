@@ -232,8 +232,8 @@ class Content extends React.Component {
         const { route } = this.props;
         
         switch (route.location) {
-          case 'settings':
-            return <PageAccount id={route.params.id} />;
+          case 'account':
+            return <PageAccount />;
           case 'index':
             return <PageIndex />;
         }
@@ -241,6 +241,29 @@ class Content extends React.Component {
 }
 
 export default sdkConnect(Content);
+```
+
+The [Routes](/pages/components/Routes) and [Route](/pages/components/Routes) components may be used in place of a `switch` statement.
+
+```jsx
+// App.jsx
+import React from 'react';
+import { Routes, Route, sdkConnect } from 'deskpro-sdk-react';
+import PageAccount from './PageAccount';
+import PageIndex from './PageIndex';
+
+class App extends React.Component {
+  render() {
+    return (
+      <Routes>
+        <Route location="account" component={PageAccount} />
+        <Route location="index" component={PageIndex} />
+      </Routes>
+    );
+  }
+}
+
+export default sdkConnect(App);
 ```
 
 Apps change the location by calling the `this.props.route.to()` method, which takes the name of the new location.
@@ -255,7 +278,7 @@ Params may also be passed along with the location.
 this.props.route.to('account', { id: 5 });
 ```
 
-Connected components may also change the location using the `Link` and `LinkButton` components.
+Connected components may also change the location using the [Link](/pages/components/Link) and [LinkButton](/pages/components/LinkButton) components.
 
 ```js
 import React from 'react';
@@ -282,12 +305,6 @@ class Menu extends React.Component {
 
 export default sdkConnect(Menu);
 ```
-
-
-**See also**
-
-* [Link](/pages/components/Link)
-* [LinkButton](/pages/components/LinkButton)
 
 
 ## OAuth
