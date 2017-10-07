@@ -1,11 +1,11 @@
 Overview
 ========
-This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket. Before you begin ensure that DeskPRO is installed and running on your local computer.
+This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket. Before you begin ensure that DeskPRO is installed and running on your computer. You will also need a text editor or IDE.
 
 ![screenshot](/images/tutorials/basic-1.png)
 
 ### Step 1. Clone the boilerplate
-This tutorial uses the SDK boilerplate which will help get you started building apps quickly.
+The SDK boilerplate includes the basic app configuration and files to help developers get started writing apps.
 
 ```
 git clone https://github.com/deskpro/deskproapps-boilerplate-react participants
@@ -34,7 +34,7 @@ Update the app configuration in the _package.json_ file found in the app root di
 ```
 
 ### Step 3. Modify the app component
-Open the file found at _src/main/javascript/App.jsx_ with a text editor or IDE. This is the app main component. Edit the file to look like the following.
+The app main component is saved at _src/main/javascript/App.jsx_. Edit the file to look like the following.
 
 ```jsx
 import React from 'react';

@@ -3,15 +3,16 @@ Overview
 This tutorial will walk you through creating a DeskPRO app which has two pages. One for app settings and a page which displays the settings.
 
 ### Step 1. Clone the boilerplate
+The SDK boilerplate includes the basic app configuration and files to help developers get started writing apps.
 
 ```
-git clone https://github.com/deskpro/deskproapps-boilerplate-react participants
-cd participants
+git clone https://github.com/deskpro/deskproapps-boilerplate-react settings
+cd settings
 npm install
 ```
 
 ### Step 2. Update the manifest
-Update the "deskpro" property in the _package.json_, which you can find in your project root. Change the "title" property to "Settings Form". An app storage variable named "settings" is also declared under the "storage" property.
+Update the app configuration in the _package.json_ file found in the app root directory. Change the "title" property to "Settings Form". The [manifest documentation](/pages/manifest) contains more information on the configuration values.
 
 ```json
 {

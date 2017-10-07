@@ -18,6 +18,7 @@ pages:
     - Forms:      "pages/components/forms.md"
   - Tutorials:
     - Basic:         "pages/tutorials/basic.md"
+    - OAuth:         "pages/tutorials/oauth.md"
     - Form Handling: "pages/tutorials/settings.md"
     - Using Redux:   "pages/tutorials/redux.md"
   - API:
