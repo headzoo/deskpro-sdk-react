@@ -4,6 +4,17 @@ This tutorial will walk you through creating a simple DeskPRO app which displays
 
 ![screenshot](/images/tutorials/basic-1.png)
 
+----
+
+To follow this tutorial you will need:
+
+* [DeskPRO running on your computer](https://github.com/deskpro/deskpro/blob/develop/README.md)
+* NPM 6 or greater
+* Git 1.9 or greater
+* A IDE or text editor
+
+----
+
 ### Step 1. Clone the boilerplate
 The SDK boilerplate includes the basic app configuration and files to help developers get started writing apps.
 
@@ -37,9 +48,11 @@ Edit the app configuration in _package.json_, which can be found in the app root
     The [manifest documentation](/pages/manifest) contains more information on app configuration.
 
 ### Step 3. Modify the app component
-Edit the app component to look like the following example. The file can be found at _src/main/javascript/App.jsx_.
+Edit the app component at _src/main/javascript/App.jsx_ to look like the following code.
 
 ```jsx
+// App.jsx
+
 import React from 'react';
 import { Container, Avatar } from 'deskpro-components';
 

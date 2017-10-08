@@ -45,8 +45,8 @@ img {
 }
 
 hr {
-  margin-top: 60px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   border: 0;
   border-top: 1px solid #d0d0d0;
 }
@@ -130,5 +130,6 @@ hr {
 }
 
 img[alt="screenshot"] {
+  margin: 1rem 0;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
