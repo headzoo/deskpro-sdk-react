@@ -56,7 +56,7 @@ Edit the app configuration in _package.json_, which can be found in the app root
 
 **Explanation**  
 
-*  The "title" value will be shown in the app toolbar. See the [manifest documentation](/pages/manifest) contains more information.
+*  The "title" value will be shown in the app toolbar. See the [manifest documentation](/pages/manifest) for more information.
 
 ### Step 3. Create the settings page
 Create a new component with a form at _src/main/javascript/PageForm.jsx_.

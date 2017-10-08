@@ -46,7 +46,7 @@ Edit the app configuration in _package.json_, which can be found in the app root
 
 **Explanation**  
 
-*  The "title" value will be shown in the app toolbar. See the [manifest documentation](/pages/manifest) contains more information.
+*  The "title" value will be shown in the app toolbar. See the [manifest documentation](/pages/manifest) for more information.
 
 ### Step 3. Modify the app component
 Edit the app component at _src/main/javascript/App.jsx_ to look like the following code.
