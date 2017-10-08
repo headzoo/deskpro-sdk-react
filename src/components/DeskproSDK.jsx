@@ -60,7 +60,17 @@ class DeskproSDK extends React.Component {
     /**
      * The app component.
      */
-    children: PropTypes.element.isRequired
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+
+    /**
+     * The app component.
+     */
+    children: PropTypes.element
+  };
+
+  static defaultProps = {
+    component: null,
+    children:  null
   };
 
   static childContextTypes = {
@@ -193,9 +203,11 @@ class DeskproSDK extends React.Component {
    */
   renderToolbar = () => {
     const { dpapp } = this.props;
+    const manifest = dpapp.manifest;
+    const ui = dpapp.ui;
 
     const controls = [];
-    if (dpapp.ui.menu !== UIConstants.VISIBILITY_HIDDEN) {
+    if (ui.menu !== UIConstants.VISIBILITY_HIDDEN) {
       controls.push(
         <Icon key="refresh" name="refresh" onClick={dpapp.refresh} />
       );
@@ -204,10 +216,10 @@ class DeskproSDK extends React.Component {
     return (
       <Heading controls={controls}>
         <AppIcon
-          badgeCount={dpapp.ui.badgeCount}
-          badgeVisible={dpapp.ui.badge === UIConstants.VISIBILITY_VISIBLE}
+          badgeCount={ui.badgeCount}
+          badgeVisible={ui.badge === UIConstants.VISIBILITY_VISIBLE}
         />
-        {dpapp.manifest.title}
+        {manifest.title}
       </Heading>
     );
   };
@@ -244,8 +256,14 @@ class DeskproSDK extends React.Component {
    * @returns {XML}
    */
   renderApp = () => {
+    const { component, children } = this.props;
+
+    if (!component && !children) {
+      throw new Error('App component not set.');
+    }
+
     return React.cloneElement(
-      React.Children.only(this.props.children),
+      component || React.Children.only(children),
       sdkProps(this.props)
     );
   };
@@ -259,7 +277,7 @@ class DeskproSDK extends React.Component {
         <Drawer className="dp-column-drawer--with-controls">
           {this.renderToolbar()}
           {this.renderErrors()}
-          {!this.props.sdk.ready
+          {!this.props.sdk.ready || this.props.dpapp.ui.isLoading()
             ? this.renderLoading()
             : this.renderApp()
           }

@@ -30,3 +30,13 @@ it('DeskproSDK renders the wrapped component', () => {
 
   expect(renderedValue).toMatchSnapshot();
 });
+
+it('DeskproSDK renders the prop component', () => {
+  const App = () => <div>App</div>;
+  const store = mockStore(initialState);
+  const renderedValue = renderer.create(
+    <DeskproSDK dpapp={dpapp} store={store} component={App} />
+  ).toJSON();
+
+  expect(renderedValue).toMatchSnapshot();
+});

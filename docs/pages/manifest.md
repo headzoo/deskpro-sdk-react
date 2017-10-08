@@ -1,10 +1,10 @@
 Overview
 ========
-Every DeskPRO app must include a manifest which the SDK uses to configure the app settings. The manifest contains application properties like the title, installation information and describes how to handle your application state and interaction with external APIs.
+Every DeskPRO app must include a manifest which contains app properties like the title, storage permissions, and interactions with external APIs. The manifest values may be added to the _package.json_ file or a separate _manifest.json_ file.
 
 ## manifest.json
 
-The app configuration may be saved as _manifest.json_ in the app root directory. It should include the following properties.
+The _manifest.json_ must be saved to the app root directory, and should include the following properties.
 
 ```json
 {
@@ -48,32 +48,32 @@ This is the version of the manifest you are using.
 The title of your application which your users will see.
 
 #### isSingle
-A boolean flag which determines if the application can be installed multiply times. For now keep this flag to true.
+A boolean flag which determines if the application can be installed multiple times. For now keep this flag to true.
 
 #### scope
-Option which determines which DeskPRO module is the target of the application. For now only agent is supported and this means your apps will appear only in the agent interface.
+Option which determines which DeskPRO module is the target of the application. For now only agent is supported which means your apps will appear only in the agent interface.
 
 #### targets
-This is a list of objects which define which of your HTML files will be displayed in which specially designed user interface location. It may help to think of the main helpdesk as a template with a predefined set of placeholders which can be filled by the app UI.
+This is a list of objects defining which HTML file renders the app, and where it be displayed in the agent interface. It may help to think of the main helpdesk as a template with a predefined set of placeholders which can be filled by the app UI.
 
 A target definition is an object with two properties:
 
 * `target` - One of the DeskPRO predefined targets
 
-* `url` - The file name of the app HTML file, relative to the app root directory
+* `url` - The path to the app HTML file relative to the app root directory
 
 #### storage
-This is a white list of storage objects, which define who can access the storage the app is persisting.
+This is a white list of storage objects, which define who can access the app storage values. See the [storage documentation](/pages/props/#storage) for more information.
 
 A storage object has the following properties:
 
 * `name` - This is the name of your storage variable
 
-* `isBackendOnly` - This is a flag which control which systems can access your storage variable. If it is false, then your storage variable will be available everywhere. If it is true the variable will only be available to internal system and it will never be exposed to the outside world
+* `isBackendOnly` - This is a flag which control which systems can access your storage variable. If it is false, then your storage variable will be available everywhere. If it is true the variable will only be available to the internal system and it will never be exposed to the outside world
 
-* `permRead` - This option establishes who can read the variable. There are only to values, OWNER and EVERYBODY. OWNER means only the user who created the variable can read, and EVERYBODY means reading is un-restricted.
+* `permRead` - This option establishes who can read the variable. There are only to values, OWNER and EVERYBODY. OWNER means only the user who created the variable can read, and EVERYBODY means reading is un-restricted
 
-* `permWrite` - This option establishes who can update or delete the variable. There are only to values, OWNER and EVERYBODY. OWNER means only the user who created the variable can write, and EVERYBODY means writing is un-restricted.
+* `permWrite` - This option establishes who can update or delete the variable. There are only to values, OWNER and EVERYBODY. OWNER means only the user who created the variable can write, and EVERYBODY means writing is un-restricted
 
 #### externalApis
 This is a white list of url patterns which is used to control which third party API’s your application can access. If you need to an external api, and chances are that you will, make sure it is on this list.
@@ -126,5 +126,4 @@ The configuration may be added to the _package.json_ file instead of having a se
 }
 ```
 
-!!! note
-    The "appVersion", "name", "description", and "author" values may be omitted from the "deskpro" configuration, as they can be determined by reading the rest of the _package.json_ file.
+The "appVersion", "name", "description", and "author" values may be omitted from the "deskpro" configuration, as they can be determined by reading the rest of the _package.json_ file.
