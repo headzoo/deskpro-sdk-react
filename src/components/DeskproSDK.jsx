@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { UIConstants } from '@deskproapps/deskproapps-sdk-core';
 import { Heading, Icon, Loader, Alert, DrawerList, Drawer } from 'deskpro-components';
+import * as sdkActions from '../actions/sdkActions';
 import { dpappPropType, storePropType } from '../utils/props';
 import { sdkProps } from '../utils/connect';
-import * as sdkActions from '../actions/sdkActions';
 import Route from '../utils/route';
 import AppIcon from './AppIcon';
 
 /**
+ * Connects DeskPRO apps to the DeskPRO API
  *
  * Example:
  *
@@ -45,9 +47,9 @@ class DeskproSDK extends React.Component {
      */
     sdk:      PropTypes.object.isRequired,
     /**
-     * The redux dispatch function.
+     * Bound action creators.
      */
-    dispatch: PropTypes.func.isRequired,
+    actions:  PropTypes.object.isRequired,
     /**
      * The app component.
      */
@@ -64,11 +66,11 @@ class DeskproSDK extends React.Component {
    * @returns {{dpapp: *}}
    */
   getChildContext() {
-    const { dispatch, store } = this.props;
+    const { store } = this.props;
 
     return {
       dpapp: this.props.dpapp,
-      route: new Route(dispatch, store.getState().sdk.route),
+      route: new Route(store.dispatch, store.getState().sdk.route),
       store
     };
   }
@@ -77,6 +79,8 @@ class DeskproSDK extends React.Component {
    * Invoked immediately before mounting occurs
    */
   componentDidMount = () => {
+    const { actions } = this.props;
+
     const promises = [
       ...this.bootstrapMe(),
       ...this.bootstrapTabData(),
@@ -84,9 +88,9 @@ class DeskproSDK extends React.Component {
     ];
     Promise.all(promises)
       .then(() => {
-        return this.props.dispatch(sdkActions.ready());
+        return actions.ready();
       }).catch((error) => {
-        return this.props.dispatch(sdkActions.error(error));
+        return actions.error(error);
       });
   };
 
@@ -96,14 +100,12 @@ class DeskproSDK extends React.Component {
    * @returns {Promise[]}
    */
   bootstrapMe = () => {
-    const { dpapp, dispatch } = this.props;
+    const { dpapp, actions } = this.props;
 
     const promise = dpapp.restApi.get('/me')
       .then((resp) => {
         try {
-          return Promise.resolve(
-            dispatch(sdkActions.me(resp.body.data.person))
-          );
+          return Promise.resolve(actions.me(resp.body.data.person));
         } catch (e) {
           return Promise.resolve({});
         }
@@ -118,14 +120,12 @@ class DeskproSDK extends React.Component {
    * @returns {Promise[]}
    */
   bootstrapTabData = () => {
-    const { dpapp, dispatch } = this.props;
+    const { dpapp, actions } = this.props;
 
     const promise = dpapp.context.getTabData()
       .then((resp) => {
         try {
-          return Promise.resolve(
-            dispatch(sdkActions.tabData(resp.api_data))
-          );
+          return Promise.resolve(actions.tabData(resp.api_data));
         } catch (e) {
           return Promise.resolve({});
         }
@@ -140,7 +140,7 @@ class DeskproSDK extends React.Component {
    * @returns {Promise[]}
    */
   bootstrapStorage = () => {
-    const { dpapp, dispatch } = this.props;
+    const { dpapp, actions } = this.props;
 
     const promises = [];
     const items = dpapp.manifest.storage || dpapp.manifest.state;
@@ -166,19 +166,13 @@ class DeskproSDK extends React.Component {
       });
 
       if (appKeys.length > 0) {
-        promises.push(
-          dispatch(sdkActions.appGetStorage(appKeys))
-        );
+        promises.push(actions.appGetStorage(appKeys));
       }
       if (entityKeys.length > 0) {
-        promises.push(
-          dispatch(sdkActions.entityGetStorage(entityKeys))
-        );
+        promises.push(actions.entityGetStorage(entityKeys));
       }
       oauthKeys.forEach((key) => {
-        promises.push(
-          dispatch(sdkActions.oauthGetSettings(key))
-        );
+        promises.push(actions.oauthGetSettings(key));
       });
     }
 
@@ -269,32 +263,10 @@ class DeskproSDK extends React.Component {
 }
 
 /**
- * Wraps the DeskproSDK component in a redux Provider
- *
- * @param {React.Component} WrappedComponent
- * @returns {React.Component}
- */
-const provider = (WrappedComponent) => {
-  return class extends React.Component {
-    static propTypes = {
-      store: PropTypes.object.isRequired
-    };
-
-    render() {
-      return (
-        <Provider store={this.props.store}>
-          <WrappedComponent {...this.props} />
-        </Provider>
-      );
-    }
-  };
-};
-
-/**
  * Maps redux state to component props
  *
  * @param {*} state
- * @returns {{sdk, form}}
+ * @returns {{sdk: *}}
  */
 function mapStateToProps(state) {
   return {
@@ -302,4 +274,16 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(provider(DeskproSDK));
+/**
+ * Maps action creators to component props
+ *
+ * @param {object} dispatch
+ * @returns {{actions: *}}
+ */
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(sdkActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeskproSDK);

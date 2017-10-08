@@ -10,18 +10,19 @@ import Route from './route';
  * Creates the SDK props which get passed to connected components
  *
  * @param {{ dpapp: *, dispatch: Function, form: *, sdk: * }} props
- * @returns {{oauth: *, context: *, route: *, storage: *, dispatch: *, dpapp: *, form: *, ui}}
+ * @returns {{oauth: *, context: *, route: *, storage: *, store: *, dpapp: *, form: *, ui}}
  */
 export function sdkProps(props) {
-  const { dpapp, dispatch, sdk } = props;
+  const { dpapp, store, sdk } = props;
 
-  const me      = Object.assign({}, sdk.me);
-  const tabData = Object.assign({}, sdk.tabData);
-  const storage = new Storage(dispatch, sdk.storage);
-  const route   = new Route(dispatch, sdk.route);
-  const context = dpapp.context;
-  const oauth   = dpapp.oauth;
-  const ui      = dpapp.ui;
+  const dispatch = store.dispatch;
+  const me       = Object.assign({}, sdk.me);
+  const tabData  = Object.assign({}, sdk.tabData);
+  const storage  = new Storage(dispatch, sdk.storage);
+  const route    = new Route(dispatch, sdk.route);
+  const context  = dpapp.context;
+  const oauth    = dpapp.oauth;
+  const ui       = dpapp.ui;
 
   oauth.providers = sdk.oauth.providers;
   ui.error        = (error) => {
