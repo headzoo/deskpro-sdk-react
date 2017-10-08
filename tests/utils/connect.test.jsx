@@ -14,6 +14,9 @@ const tabData  = {};
 const me       = {};
 const ui       = {};
 const dispatch = () => {};
+const store    = {
+  dispatch
+};
 const dpapp = {
   context,
   oauth,
@@ -34,7 +37,7 @@ const sdk = {
 };
 
 const props = {
-  dispatch,
+  store,
   dpapp,
   sdk
 };
@@ -59,7 +62,7 @@ test('dpappProvider passes props to the wrapped component', () => {
     () => <div>Testing</div>
   );
   const app  = shallow(<Wrapped {...props} />, {
-    context: { dpapp }
+    context: { dpapp, store }
   });
 
   const expected = {

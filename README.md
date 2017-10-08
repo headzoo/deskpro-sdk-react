@@ -1,6 +1,8 @@
 DeskPRO React SDK
 =================
 
+[![Build Status](https://travis-ci.org/headzoo/deskpro-sdk-react.svg?branch=master)](https://travis-ci.org/headzoo/deskpro-sdk-react)
+
 Online documentation is available at https://headzoo.github.io/deskpro-sdk-react.
 
 ## Installing
