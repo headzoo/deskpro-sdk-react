@@ -37,6 +37,9 @@ export default class Route extends React.Component {
     children: PropTypes.node
   };
 
+  /**
+   * Specifies the default values for props
+   */
   static defaultProps = {
     location:     '',
     children:     '',

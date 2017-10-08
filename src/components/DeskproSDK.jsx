@@ -68,11 +68,17 @@ class DeskproSDK extends React.Component {
     children: PropTypes.element
   };
 
+  /**
+   * Specifies the default values for props
+   */
   static defaultProps = {
     component: null,
     children:  null
   };
 
+  /**
+   * Context values passed down to children that declare contextTypes
+   */
   static childContextTypes = {
     dpapp: dpappPropType,
     store: storePropType,
@@ -244,8 +250,8 @@ class DeskproSDK extends React.Component {
     return (
       <Heading controls={controls}>
         <AppIcon
-          badgeCount={sdk.badgeCount}
-          badgeVisible={sdk.badgeCount > 0}
+          badgeCount={sdk.ui.badgeCount}
+          badgeVisible={sdk.ui.badgeCount > 0}
         />
         {dpapp.manifest.title}
       </Heading>

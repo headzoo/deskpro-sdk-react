@@ -45,11 +45,17 @@ export default class Routes extends React.Component {
     children: childrenPropType
   };
 
+  /**
+   * Specifies the default values for props
+   */
   static defaultProps = {
     to:       '',
     children: []
   };
 
+  /**
+   * Context values the child wants passed down from the parent
+   */
   static contextTypes = {
     route: PropTypes.object
   };

@@ -5,6 +5,18 @@ import { propKeyFilter } from '../utils/props';
 
 /**
  * A button which dispatches to a route location when clicked.
+ *
+ * Example:
+ *
+ * ```jsx
+ * render() {
+ *  return (
+ *    <div>
+ *      <LinkButton to="index">Index Page</LinkButton>
+ *    </div>
+ *  );
+ * }
+ * ```
  */
 class LinkButton extends React.Component {
   static propTypes = {
@@ -29,6 +41,9 @@ class LinkButton extends React.Component {
     onClick: PropTypes.func
   };
 
+  /**
+   * Specifies the default values for props
+   */
   static defaultProps = {
     to:       '',
     params:   {},
@@ -36,6 +51,9 @@ class LinkButton extends React.Component {
     onClick:  () => {}
   };
 
+  /**
+   * Context values the child wants passed down from the parent
+   */
   static contextTypes = {
     route: PropTypes.object
   };

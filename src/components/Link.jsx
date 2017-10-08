@@ -4,6 +4,18 @@ import { propKeyFilter } from '../utils/props';
 
 /**
  * A link which dispatches to a route location when clicked.
+ *
+ * Example:
+ *
+ * ```jsx
+ * render() {
+ *  return (
+ *    <div>
+ *      <Link to="index">Index Page</Link>
+ *    </div>
+ *  );
+ * }
+ * ```
  */
 class Link extends React.Component {
   static propTypes = {
@@ -28,6 +40,9 @@ class Link extends React.Component {
     onClick: PropTypes.func
   };
 
+  /**
+   * Specifies the default values for props
+   */
   static defaultProps = {
     to:       '',
     params:   {},
@@ -35,6 +50,9 @@ class Link extends React.Component {
     onClick:  () => {}
   };
 
+  /**
+   * Context values the child wants passed down from the parent
+   */
   static contextTypes = {
     route: PropTypes.object
   };

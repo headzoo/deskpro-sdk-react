@@ -51,7 +51,7 @@ export default function configureStore(dpapp, middleware = [], reducers = {}, in
       }
     }
   } catch (e) {
-    console.error(e);
+    console.warn(e);
   }
 
   if (!Array.isArray(middleware)) {

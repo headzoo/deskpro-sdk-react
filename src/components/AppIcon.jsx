@@ -40,6 +40,9 @@ AppIcon.propTypes = {
   style: PropTypes.object
 };
 
+/**
+ * Specifies the default values for props
+ */
 AppIcon.defaultProps = {
   badgeVisible: false,
   badgeCount:   0,

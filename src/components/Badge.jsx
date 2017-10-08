@@ -39,6 +39,9 @@ Badge.propTypes = {
   style: PropTypes.object
 };
 
+/**
+ * Specifies the default values for props
+ */
 Badge.defaultProps = {
   visible: false,
   count:   0,
