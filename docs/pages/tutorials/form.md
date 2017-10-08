@@ -16,7 +16,7 @@ npm install
 ```
 
 ### Step 2. Update the manifest
-Edit the app configuration in _package.json_, which can be found in the app root directory. Change the "title" property to "Form Tutorial". Each app has a toolbar which displays this value.
+Edit the app configuration in _package.json_, which can be found in the app root directory. Change the "title" property to "Form Tutorial". This value will be shown in the app toolbar.
 
 ```json
 {
@@ -104,7 +104,7 @@ The form uses [this.props.storage.onSubmitApp](/pages/props/#storage) as the `on
 
 The submit handler then calls `this.handleSubmit`, which uses the [route object](/pages/props/#route) to switch to the index page.
 
-!!! tip
+!!! note
     Passing `this.handleSubmit` to `this.props.storage.onSubmitApp` is optional. In the above code `this.handleSubmit` is only used to redirect to a different page after the form is submitted. Otherwise it could have been omitted and the `onSubmit` prop could have been written like this:
     
     `onSubmit={storage.onSubmitApp}`
@@ -149,7 +149,7 @@ export default sdkConnect(PageIndex);
 The storage values saved by the settings form are read from `this.props.storage.app.settings`, which has been updated automatically when the values were written to storage.
 
 ### Step 5. Modify the app component
-Open the main app component at _src/main/javascript/App.jsx_. The [Routes and Route components](/pages/components/Routes/) will be used to display either the index or settings page.
+Open the main app component at _src/main/javascript/App.jsx_. The [Routes and Route components](/pages/components/Routes/) will be used to display either the index or settings page. Depending on the current location.
 
 ```jsx
 import React from 'react';
@@ -174,10 +174,10 @@ export default App;
     The `App` component does not need to be connected to the SDK with `sdkConnect`, because it will be wrapped by the `DeskproSDK` component.
 
 ### Step 6. Run the dev server
-Make sure DeskPRO is running on your computer, and start the dev server.
+Make sure DeskPRO is running on your computer. From the app root directory run the following command.
 
 ```
 npm run dev
 ```
 
-When the dev server is finished building the app you can open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
+The `dev` script builds your app and starts a development server which communicates with DeskPRO to install the app. When the dev server is finished building the app you can open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).

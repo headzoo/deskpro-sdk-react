@@ -14,7 +14,7 @@ npm install
 ```
 
 ### Step 2. Update the manifest
-Edit the app configuration in _package.json_, which can be found in the app root directory. Change the "title" property to "Participants". Each app has a toolbar which displays this value.
+Edit the app configuration in _package.json_, which can be found in the app root directory. Change the "title" property to "Participants". This value will be shown in the app toolbar.
 
 ```json
 {
@@ -37,7 +37,7 @@ Edit the app configuration in _package.json_, which can be found in the app root
     The [manifest documentation](/pages/manifest) contains more information on app configuration.
 
 ### Step 3. Modify the app component
-The app main component is saved at _src/main/javascript/App.jsx_. Edit the file to look like the following.
+Edit the app component to look like the following example. The file can be found at _src/main/javascript/App.jsx_.
 
 ```jsx
 import React from 'react';
@@ -68,6 +68,8 @@ export default class App extends React.Component {
 }
 ```
 
+The SDK automatically injects the [tabData](/pages/props/#tabdata) prop into the component. This prop is a plain object which contains information about the open ticket. The code above iterates over the `tabData.participants` array and displays an avatar for each person.
+
 ### Step 4. Modify the app styles
 The boilerplate includes a SASS stylesheet which can be found in _src/main/sass/index.scss_. Modify the stylesheet to look like the following.
 
@@ -85,10 +87,10 @@ $dp-styles-font-path: "~deskpro-components/src/styles/fonts/";
 ```
 
 ### Step 5. Run the dev server
-Make sure DeskPRO is running on your computer, and start the dev server.
+Make sure DeskPRO is running on your computer. From the app root directory run the following command to start the dev server.
 
 ```
 npm run dev
 ```
 
-When the dev server is finished building the app you can open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
+The `dev` script builds your app and starts a development server which communicates with DeskPRO to install the app. When the dev server is finished building the app you can open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
