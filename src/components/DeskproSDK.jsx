@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider, connect } from 'react-redux';
 import { UIConstants } from '@deskproapps/deskproapps-sdk-core';
-import { Container, Heading, Icon, Alert, Loader, DrawerList, Drawer } from 'deskpro-components';
+import { Heading, Icon, Loader, Alert, DrawerList, Drawer } from 'deskpro-components';
 import { dpappPropType, storePropType } from '../utils/props';
 import { sdkProps } from '../utils/connect';
 import * as sdkActions from '../actions/sdkActions';
@@ -78,8 +78,8 @@ class DeskproSDK extends React.Component {
    */
   componentDidMount = () => {
     const promises = [
-      this.bootstrapMe(),
-      this.bootstrapTabData(),
+      ...this.bootstrapMe(),
+      ...this.bootstrapTabData(),
       ...this.bootstrapStorage()
     ];
     Promise.all(promises)
@@ -93,37 +93,45 @@ class DeskproSDK extends React.Component {
   /**
    * Fetches the "me" data for the user
    *
-   * @returns {Promise}
+   * @returns {Promise[]}
    */
   bootstrapMe = () => {
-    return this.props.dpapp.restApi.get('/me')
+    const { dpapp, dispatch } = this.props;
+
+    const promise = dpapp.restApi.get('/me')
       .then((resp) => {
         try {
           return Promise.resolve(
-            this.props.dispatch(sdkActions.me(resp.body.data.person))
+            dispatch(sdkActions.me(resp.body.data.person))
           );
         } catch (e) {
           return Promise.resolve({});
         }
       });
+
+    return [promise];
   };
 
   /**
-   * Fetches the data for the current tab
+   * Fetches the data for the active tab
    *
-   * @returns {Promise}
+   * @returns {Promise[]}
    */
   bootstrapTabData = () => {
-    return this.props.dpapp.context.getTabData()
+    const { dpapp, dispatch } = this.props;
+
+    const promise = dpapp.context.getTabData()
       .then((resp) => {
         try {
           return Promise.resolve(
-            this.props.dispatch(sdkActions.tabData(resp.api_data))
+            dispatch(sdkActions.tabData(resp.api_data))
           );
         } catch (e) {
           return Promise.resolve({});
         }
       });
+
+    return [promise];
   };
 
   /**
@@ -178,24 +186,11 @@ class DeskproSDK extends React.Component {
   };
 
   /**
-   * Renders the list of errors as Alert components
-   *
-   * @returns {Array}
-   */
-  renderErrors() {
-    return this.props.sdk.errors.map(error => (
-      <Alert key={error.id} type="danger" style={{ margin: 10 }}>
-        {error.msg}
-      </Alert>
-    ));
-  }
-
-  /**
-   * Renders the app menu heading
+   * Renders the app menu toolbar
    *
    * @returns {*}
    */
-  renderHeading = () => {
+  renderToolbar = () => {
     const { dpapp } = this.props;
 
     const controls = [];
@@ -217,31 +212,56 @@ class DeskproSDK extends React.Component {
   };
 
   /**
+   * Renders SDK errors as alerts
+   *
+   * @returns {Array}
+   */
+  renderErrors = () => {
+    return this.props.sdk.errors.map(error => (
+      <Alert key={error.id} type="danger" style={{ margin: 10 }}>
+        {error.msg}
+      </Alert>
+    ));
+  };
+
+  /**
+   * Renders the loading animation
+   *
+   * @returns {XML}
+   */
+  renderLoading = () => {
+    return (
+      <div className="dp-text-center">
+        <Loader />
+      </div>
+    );
+  };
+
+  /**
+   * Renders the main app component
+   *
+   * @returns {XML}
+   */
+  renderApp = () => {
+    return React.cloneElement(
+      React.Children.only(this.props.children),
+      sdkProps(this.props)
+    );
+  };
+
+  /**
    * @returns {XML}
    */
   render() {
-    const { sdk, children } = this.props;
-
-    if (!sdk.ready) {
-      return (
-        <Container className="up-text-center">
-          {this.renderErrors()}
-          <Loader />
-        </Container>
-      );
-    }
-
     return (
       <DrawerList>
         <Drawer className="dp-column-drawer--with-controls">
-          {this.renderHeading()}
-          <Container style={{ padding: 0 }}>
-            {this.renderErrors()}
-            {React.cloneElement(
-              React.Children.only(children),
-              sdkProps(this.props)
-            )}
-          </Container>
+          {this.renderToolbar()}
+          {this.renderErrors()}
+          {!this.props.sdk.ready
+            ? this.renderLoading()
+            : this.renderApp()
+          }
         </Drawer>
       </DrawerList>
     );
@@ -278,8 +298,7 @@ const provider = (WrappedComponent) => {
  */
 function mapStateToProps(state) {
   return {
-    sdk:  Object.assign({}, state.sdk),
-    form: Object.assign({}, state.form)
+    sdk: Object.assign({}, state.sdk)
   };
 }
 

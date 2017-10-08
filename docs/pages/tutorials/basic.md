@@ -1,6 +1,6 @@
 Overview
 ========
-This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket. Before you begin ensure that DeskPRO is installed and running on your computer. You will also need a text editor or IDE.
+This tutorial will walk you through creating a simple DeskPRO app which displays a list of people participating in a ticket.
 
 ![screenshot](/images/tutorials/basic-1.png)
 
@@ -14,7 +14,7 @@ npm install
 ```
 
 ### Step 2. Update the manifest
-Update the app configuration in the _package.json_ file found in the app root directory. Change the "title" property to "Participants". The [manifest documentation](/pages/manifest) contains more information on the configuration values.
+Edit the app configuration in _package.json_, which can be found in the app root directory. Change the "title" property to "Participants". Each app has a toolbar which displays this value.
 
 ```json
 {
@@ -32,6 +32,9 @@ Update the app configuration in the _package.json_ file found in the app root di
   }
 }
 ```
+
+!!! tip
+    The [manifest documentation](/pages/manifest) contains more information on app configuration.
 
 ### Step 3. Modify the app component
 The app main component is saved at _src/main/javascript/App.jsx_. Edit the file to look like the following.

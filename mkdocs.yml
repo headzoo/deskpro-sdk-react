@@ -20,9 +20,9 @@ pages:
     - LinkButton: "pages/components/LinkButton.md"
     - Forms:      "pages/components/forms.md"
   - Tutorials:
-    - Basic:         "pages/tutorials/basic.md"
+    - Basic App:     "pages/tutorials/basic.md"
     - Form Handling: "pages/tutorials/form.md"
-    - OAuth:         "pages/tutorials/oauth.md"
+    - Using OAuth:   "pages/tutorials/oauth.md"
     - Using Redux:   "pages/tutorials/redux.md"
   - API:
     - Actions: "pages/api/actions.md"

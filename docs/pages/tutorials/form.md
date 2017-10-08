@@ -16,13 +16,13 @@ npm install
 ```
 
 ### Step 2. Update the manifest
-Update the app configuration in the _package.json_ file found in the app root directory. Change the "title" property to "Settings Form". The [manifest documentation](/pages/manifest) contains more information on the configuration values.
+Edit the app configuration in _package.json_, which can be found in the app root directory. Change the "title" property to "Form Tutorial". Each app has a toolbar which displays this value.
 
 ```json
 {
   "deskpro": {
     "version": "2.1.0",
-    "title": "Settings Form",
+    "title": "Form Tutorial",
     "isSingle": true,
     "scope": "agent",
     "targets": [
@@ -42,6 +42,9 @@ Update the app configuration in the _package.json_ file found in the app root di
   }
 }
 ```
+
+!!! tip
+    The [manifest documentation](/pages/manifest) contains more information on app configuration.
 
 ### Step 3. Create the settings page
 Create a new Javascript file and save it at _src/main/javascript/PageSettings.jsx_. The settings page uses form components from the [deskpro-components](https://github.com/deskpro/deskpro-components) library, which is included in the boilerplate by default.
@@ -102,7 +105,9 @@ The form uses [this.props.storage.onSubmitApp](/pages/props/#storage) as the `on
 The submit handler then calls `this.handleSubmit`, which uses the [route object](/pages/props/#route) to switch to the index page.
 
 !!! tip
-    Passing `this.handleSubmit` to `this.props.storage.onSubmitApp` is optional. In the above code `this.handleSubmit` is only used to redirect to a different page after the form is submitted. Otherwise it could have been omitted.
+    Passing `this.handleSubmit` to `this.props.storage.onSubmitApp` is optional. In the above code `this.handleSubmit` is only used to redirect to a different page after the form is submitted. Otherwise it could have been omitted and the `onSubmit` prop could have been written like this:
+    
+    `onSubmit={storage.onSubmitApp}`
 
 ### Step 4. Create the index page
 Create a new Javascript file and save it at _src/main/javascript/PageIndex.jsx_. This page will display the values entered on the settings page.
@@ -122,10 +127,14 @@ class PageIndex extends React.Component {
     
     return (
       <Container>
-        <ul>
-          <li>Client ID: {settings.clientId}</li>
-          <li>Client Secret: {settings.clientSecret}</li>
-        </ul>
+        <div>
+          <div>
+            Client ID: {settings.clientId}
+          </div>
+          <div>
+            Client Secret: {settings.clientSecret}
+          </div>
+        </div>
         <LinkButton to="settings">
           Edit
         </LinkButton>

@@ -1,6 +1,6 @@
-Routes
-======
-The SDK includes a light-weight router which displays different pages within DeskPRO apps. Routes locations are defined using simple names instead of addresses, because DeskPRO apps do not use the browser location (URL). The current location is changed by calling [this.props.route.to()](/pages/props/#route) with the name of the new location, or by using the [Link](/pages/components/Link) and [LinkButton](/pages/components/LinkButton) components.
+Overview
+========
+The SDK includes a light-weight router which displays different pages within DeskPRO apps. Route locations are defined using simple names instead of addresses, because DeskPRO apps do not use the browser location (URL). The current location is changed by calling [this.props.route.to()](/pages/props/#route) with the name of the new location, or by using the [Link](/pages/components/Link) and [LinkButton](/pages/components/LinkButton) components.
 
 ## Example
 First create a few pages for the app.
@@ -52,7 +52,7 @@ const PageNotFound = () => (
 export default PageNotFound;
 ```
 
-Now create the main app component which contains the `Routes`. The `Route` which matches the current location gets rendered. The route with the `defaultRoute` prop renders when no other routes match the current location.
+Now create the main app component which contains the `Routes`. The `Route` which matches the current location gets rendered. The route with the `defaultRoute` prop renders when no other routes matches the current location.
 
 ```jsx
 // App.jsx
@@ -95,7 +95,7 @@ Routes may also be defined using child components instead of the `component` pro
 
 ## Changing routes manually
 
-The `this.props.route.to()` method may be used to change routes manually.
+Call `this.props.route.to()` to change routes manually.
 
 ```jsx
 import React from 'react';

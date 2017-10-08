@@ -1,9 +1,9 @@
 Overview
 ========
-Redux is used internally by the SDK to manage state.
+[Redux](http://redux.js.org/) is used internally by the SDK to manage state. Its usage has been hidden away to make the SDK user friendly, but it may be used by developers in need of a centralized store.
 
 ## Configuring
-The SDK store is created with the `configureStore()` function, which must be passed to the `DeskproSDK` component via the `store` prop.
+The SDK store is created by the `configureStore()` function, and the store object must be passed to the `DeskproSDK` component via the `store` prop.
 
 ```js
 import ReactDOM from 'react-dom';
@@ -69,14 +69,6 @@ const initialState = {
 const store = configureStore(dpapp, reducers, initialState);
 ```
 
-!!! note
-    The middleware argument may be omitted when not used. Although the following example is still valid.
-    ```
-    const store = configureStore(dpapp, [], reducers, initialState);
-    ```
-
-
-## Examples
 The following example uses middleware, reducers, and initial state.
 
 ```js
@@ -106,7 +98,52 @@ export function runApp(dpapp) {
 }
 ```
 
+## Dispatch
+Components which have been [connected to the SDK](/pages/props/#connecting-your-components) will have the redux [dispatch](http://redux.js.org/docs/api/Store.html#dispatch) function passed to their props.
+
+```jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Container } from 'deskpro-components';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageSettings extends React.Component {
+  /**
+   * Dispatches the APP_SETTINGS_CHANGED action after the form has
+   * been submitted.
+   */
+  handleSubmit = (settings) => {
+    this.props.dispatch({
+        type: 'APP_SETTINGS_CHANGED',
+        settings
+    });
+  };
+
+  /**
+   * @returns {XML}
+   */
+  render() {
+    return (
+      <Container>
+        <Form name="settings" onSubmit={this.handleSubmit}>
+          <Input
+            label="Client ID"
+            id="clientId"
+            name="clientId"
+          />
+          <Button>
+            Save
+          </Button>
+        </Form>
+      </Container>
+    );
+  }
+}
+
+export default sdkConnect(PageSettings);
+```
+
 ## Debugging
-The SDK automatically enables support for the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) when running in the "development" environment. The extension allows developers to view, modify, and playback the redux state, and it runs in Chrome, Firefox, and other browsers.
+The SDK automatically enables support for the [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) when running in the "development" environment. The extension allows developers to view, modify, and playback the redux state. It runs in Chrome, Firefox, and other browsers.
 
 ![screenshot](https://cloud.githubusercontent.com/assets/7957859/18002950/aacb82fc-6b93-11e6-9ae9-609862c18302.png)
