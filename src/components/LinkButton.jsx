@@ -11,19 +11,22 @@ class LinkButton extends React.Component {
     /**
      * Route that will be dispatched when the button is clicked.
      */
-    to:       PropTypes.string,
+    to: PropTypes.string,
+
     /**
      * Params passed with the route.
      */
-    params:   PropTypes.object,
+    params: PropTypes.object,
+
     /**
      * Children rendered into the button.
      */
     children: PropTypes.node,
+
     /**
      * Called when the button is clicked.
      */
-    onClick:  PropTypes.func
+    onClick: PropTypes.func
   };
 
   static defaultProps = {

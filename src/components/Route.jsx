@@ -16,10 +16,25 @@ import PropTypes from 'prop-types';
  */
 export default class Route extends React.Component {
   static propTypes = {
-    location:     PropTypes.string,
+    /**
+     * The name of the route.
+     */
+    location: PropTypes.string,
+
+    /**
+     * Whether or not this route acts as the default.
+     */
     defaultRoute: PropTypes.bool,
-    component:    PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-    children:     PropTypes.node
+
+    /**
+     * The component to render when the route matches.
+     */
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+
+    /**
+     * The children to render when the component prop is not used.
+     */
+    children: PropTypes.node
   };
 
   static defaultProps = {

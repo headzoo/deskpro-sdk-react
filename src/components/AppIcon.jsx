@@ -28,14 +28,16 @@ AppIcon.propTypes = {
    * Whether or not the badge count is displayed.
    */
   badgeVisible: PropTypes.bool,
+
   /**
    * The badge count.
    */
-  badgeCount:   PropTypes.number,
+  badgeCount: PropTypes.number,
+
   /**
    * Additional styles passed to the room element.
    */
-  style:        PropTypes.object
+  style: PropTypes.object
 };
 
 AppIcon.defaultProps = {

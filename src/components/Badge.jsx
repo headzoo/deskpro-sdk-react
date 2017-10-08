@@ -27,14 +27,16 @@ Badge.propTypes = {
    * Whether or not the badge count is displayed.
    */
   visible: PropTypes.bool,
+
   /**
    * The badge count.
    */
-  count:   PropTypes.number,
+  count: PropTypes.number,
+
   /**
    * Additional styles passed to the room element.
    */
-  style:   PropTypes.object
+  style: PropTypes.object
 };
 
 Badge.defaultProps = {

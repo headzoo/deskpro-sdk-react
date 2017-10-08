@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { UIConstants } from '@deskproapps/deskproapps-sdk-core';
 import { Heading, Icon, Loader, Alert, DrawerList, Drawer } from 'deskpro-components';
-import * as sdkActions from '../actions/sdkActions';
 import { dpappPropType, storePropType } from '../utils/props';
+import * as sdkActions from '../actions/sdkActions';
 import { sdkProps } from '../utils/connect';
 import Route from '../utils/route';
 import AppIcon from './AppIcon';
 
 /**
  * Connects DeskPRO apps to the DeskPRO API
+ *
+ * Provides SDK props to a wrapped component. The props provide information about the app
+ * and have methods which communicate with the API.
  *
  * Example:
  *
@@ -37,19 +40,23 @@ class DeskproSDK extends React.Component {
     /**
      * Instance of sdk-core.
      */
-    dpapp:    dpappPropType.isRequired,
+    dpapp: dpappPropType.isRequired,
+
     /**
      * Instance of the redux store.
      */
-    store:    storePropType.isRequired,
+    store: storePropType.isRequired,
+
     /**
      * The sdk values stored in the store.
      */
-    sdk:      PropTypes.object.isRequired,
+    sdk: PropTypes.object.isRequired,
+
     /**
      * Bound action creators.
      */
-    actions:  PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+
     /**
      * The app component.
      */
@@ -76,20 +83,20 @@ class DeskproSDK extends React.Component {
   }
 
   /**
-   * Invoked immediately before mounting occurs
+   * Bootstraps the application
    */
   componentDidMount = () => {
     const { actions } = this.props;
 
-    const promises = [
+    Promise.all([
       ...this.bootstrapMe(),
       ...this.bootstrapTabData(),
       ...this.bootstrapStorage()
-    ];
-    Promise.all(promises)
+    ])
       .then(() => {
         return actions.ready();
-      }).catch((error) => {
+      })
+      .catch((error) => {
         return actions.error(error);
       });
   };

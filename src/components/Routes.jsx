@@ -34,7 +34,14 @@ const childrenPropType = (props, propName, componentName) => {
  */
 export default class Routes extends React.Component {
   static propTypes = {
-    to:       PropTypes.string,
+    /**
+     * Name of the route to render. Overrides the location in the store.
+     */
+    to: PropTypes.string,
+
+    /**
+     * Child components.
+     */
     children: childrenPropType
   };
 
