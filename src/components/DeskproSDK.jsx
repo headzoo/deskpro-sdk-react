@@ -228,10 +228,10 @@ class DeskproSDK extends React.Component {
 
     actions.refreshing(true);
     this.bootstrap()
-      .then(() => actions.refreshing(false))
       .catch((error) => {
         return actions.error(error);
-      });
+      })
+      .then(() => actions.refreshing(false));
   };
 
   /**
