@@ -42,12 +42,16 @@ import configureRootReducer from '../reducers/rootReducer';
  */
 export default function configureStore(dpapp, middleware = [], reducers = {}, initialState = {}) {
   let composeEnhancers = compose;
-  if (dpapp.environment === 'development') {
-    if (window.parent && window.parent.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
-      composeEnhancers = window.parent.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-    } else if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
-      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  try {
+    if (dpapp.environment === 'development') {
+      if (window.parent && window.parent.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
+        composeEnhancers = window.parent.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+      } else if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
+        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+      }
     }
+  } catch (e) {
+    console.error(e);
   }
 
   if (!Array.isArray(middleware)) {

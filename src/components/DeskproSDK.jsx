@@ -103,7 +103,6 @@ class DeskproSDK extends React.Component {
             this.props.dispatch(sdkActions.me(resp.body.data.person))
           );
         } catch (e) {
-          console.warn(e); // eslint-disable-line no-console
           return Promise.resolve({});
         }
       });
@@ -122,7 +121,6 @@ class DeskproSDK extends React.Component {
             this.props.dispatch(sdkActions.tabData(resp.api_data))
           );
         } catch (e) {
-          console.warn(e); // eslint-disable-line no-console
           return Promise.resolve({});
         }
       });

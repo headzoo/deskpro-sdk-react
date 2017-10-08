@@ -77,7 +77,6 @@ class App extends React.Component {
 export default sdkConnect(App);
 ```
 
-**Note:**  
 Routes may also be defined using child components instead of the `component` prop.
 
 ```jsx

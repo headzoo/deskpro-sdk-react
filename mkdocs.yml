@@ -1,8 +1,11 @@
 site_name: DeskPRO React SDK
 theme_dir: docs/psinder
+markdown_extensions:
+  - admonition
 site_favicon: favicon.png
 extra_css:
   - "css/site.css"
+  - "css/admonition.css"
 repo_name: "GitHub"
 repo_url: "https://github.com/DeskproApps/sdk-react"
 copyright: "Copyright 2001 – 2017 Deskpro Ltd. All rights reserved."
@@ -18,8 +21,8 @@ pages:
     - Forms:      "pages/components/forms.md"
   - Tutorials:
     - Basic:         "pages/tutorials/basic.md"
+    - Form Handling: "pages/tutorials/form.md"
     - OAuth:         "pages/tutorials/oauth.md"
-    - Form Handling: "pages/tutorials/settings.md"
     - Using Redux:   "pages/tutorials/redux.md"
   - API:
     - Actions: "pages/api/actions.md"

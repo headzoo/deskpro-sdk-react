@@ -86,6 +86,9 @@ export default sdkConnect(PageSettings, mapStateToProps);
 
 An object which reads and writes values to the DeskPRO database in order to persist them from one invocation of the app and another. Two mechanisms are provided for storing values. One for storing global "app" values, and one for attaching "entity" values to the currently opened ticket.
 
+!!! note
+    See the [manifest storage configuration](/pages/manifest/#storage) for more information about declaring storage values and setting permissions.
+
 Call `this.props.storage.setApp()` to persist global values which will be bound the app. For instance app settings or user information. The method takes an object of key/value pairs.
 
 ```js
@@ -149,7 +152,8 @@ Call `this.props.storage.setEntity()` to attach values to the currently opened t
 this.props.storage.setEntity({ note: '...' });
 ```
 
-Under the hood the SDK saves the value as "note:{ticket_id}". Which means the value of "note" is unique to the ticket the agent is viewing.
+!!! note
+    Under the hood the SDK saves the value using key "note:{ticket_id}". Which means the value of "note" is unique to the ticket being viewed.
 
 Once the values have been saved they can be read from the `this.props.storage.entity` object.
 

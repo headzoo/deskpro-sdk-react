@@ -22,7 +22,7 @@ export function runApp(dpapp) {
 ```
 
 ## Middleware
-The store may be configured with additional middleware by passing an array of functions as the second argument to `configureStore()`. ([Thunk](https://github.com/gaearon/redux-thunk) is included by default.)
+The store may be configured with additional middleware by passing an array of functions as the second argument to `configureStore()`.
 
 ```js
 import { configureStore } from 'deskpro-sdk-react';
@@ -31,6 +31,9 @@ import analytics from 'redux-analytics';
 
 const store = configureStore(dpapp, [logger, analytics]);
 ```
+
+!!! note
+    [Thunk](https://github.com/gaearon/redux-thunk) middleware is included by default.
 
 ## Reducers
 Additional reducers may also be passed to the `configureStore()` function.
@@ -45,6 +48,9 @@ const store = configureStore(dpapp, {
     custom: customReducer
 });
 ```
+
+!!! note
+    The [Redux Form](https://redux-form.com/7.1.0/) reducer is included by default.
 
 Initial state for the custom reducers may also be passed to the `configureStore()` function.
 
@@ -63,12 +69,11 @@ const initialState = {
 const store = configureStore(dpapp, reducers, initialState);
 ```
 
-**Note:**  
-The middleware argument may be omitted when not used. Although the following example is still valid.
-
-```jsx
-const store = configureStore(dpapp, [], reducers, initialState);
-```
+!!! note
+    The middleware argument may be omitted when not used. Although the following example is still valid.
+    ```
+    const store = configureStore(dpapp, [], reducers, initialState);
+    ```
 
 
 ## Examples

@@ -8,8 +8,8 @@ This tutorial will walk you through creating a simple DeskPRO app which displays
 The SDK boilerplate includes the basic app configuration and files to help developers get started writing apps.
 
 ```
-git clone https://github.com/deskpro/deskproapps-boilerplate-react participants
-cd participants
+git clone https://github.com/deskpro/deskproapps-boilerplate-react basic-tutorial
+cd basic-tutorial
 npm install
 ```
 
@@ -82,10 +82,10 @@ $dp-styles-font-path: "~deskpro-components/src/styles/fonts/";
 ```
 
 ### Step 5. Run the dev server
-Start the dev server.
+Make sure DeskPRO is running on your computer, and start the dev server.
 
 ```
 npm run dev
 ```
 
-Now open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
+When the dev server is finished building the app you can open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).

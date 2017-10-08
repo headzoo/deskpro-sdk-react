@@ -126,5 +126,5 @@ The configuration may be added to the _package.json_ file instead of having a se
 }
 ```
 
-**Note:**  
-The "appVersion", "name", "description", and "author" values may be omitted from the "deskpro" configuration, as they can be determined by reading the rest of the _package.json_ file.
+!!! note
+    The "appVersion", "name", "description", and "author" values may be omitted from the "deskpro" configuration, as they can be determined by reading the rest of the _package.json_ file.

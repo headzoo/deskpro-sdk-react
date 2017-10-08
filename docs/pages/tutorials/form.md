@@ -1,13 +1,17 @@
 Overview
 ========
-This tutorial will walk you through creating a DeskPRO app which has two pages. One for app settings and a page which displays the settings.
+This tutorial will walk you through creating a DeskPRO app which has two pages. One page with a settings form and one page which displays the form values. [App storage](/pages/props/#storage) will be used to save the values, and the [route object](/pages/props/#route) will be used to switch between the two pages.
+
+![screenshot](/images/tutorials/form-1.png)
+
+![screenshot](/images/tutorials/form-2.png)
 
 ### Step 1. Clone the boilerplate
 The SDK boilerplate includes the basic app configuration and files to help developers get started writing apps.
 
 ```
-git clone https://github.com/deskpro/deskproapps-boilerplate-react settings
-cd settings
+git clone https://github.com/deskpro/deskproapps-boilerplate-react form-tutorial
+cd form-tutorial
 npm install
 ```
 
@@ -40,7 +44,7 @@ Update the app configuration in the _package.json_ file found in the app root di
 ```
 
 ### Step 3. Create the settings page
-Create a new source code file and save it at _src/main/javascript/PageSettings.jsx_. The settings page uses form components from the [deskpro-components](https://github.com/deskpro/deskpro-components) library, which is included in the boilerplate by default.
+Create a new Javascript file and save it at _src/main/javascript/PageSettings.jsx_. The settings page uses form components from the [deskpro-components](https://github.com/deskpro/deskpro-components) library, which is included in the boilerplate by default.
 
 ```jsx
 import React from 'react';
@@ -53,7 +57,7 @@ class PageSettings extends React.Component {
    * Changes to the index page after the form is submitted and
    * the values have been written to app storage.
    */
-  handleSubmit = (settings) => {
+  handleSubmit = () => {
     this.props.route.to('index');
   };
 
@@ -72,14 +76,14 @@ class PageSettings extends React.Component {
           onSubmit={storage.onSubmitApp(this.handleSubmit)}
         >
           <Input
-            label="Your first name"
-            id="first_name"
-            name="first_name"
+            label="Client ID"
+            id="clientId"
+            name="clientId"
           />
           <Input
-            label="Your last name"
-            id="last_name"
-            name="last_name"
+            label="Client Secret"
+            id="clientSecret"
+            name="clientSecret"
           />
           <Button>
             Save
@@ -93,10 +97,15 @@ class PageSettings extends React.Component {
 export default sdkConnect(PageSettings);
 ```
 
-The form uses the [this.props.storage.onSubmitApp](/pages/props/#storage) form handler, which writes the form values to app storage using the form `name` prop as the storage key. It then calls the `this.handleSubmit` function which changes to the index page.
+The form uses [this.props.storage.onSubmitApp](/pages/props/#storage) as the `onSubmit` handler, which writes the form values to app storage using the form `name` prop as the storage key. In this case the form values are saved using the "settings" key.
+
+The submit handler then calls `this.handleSubmit`, which uses the [route object](/pages/props/#route) to switch to the index page.
+
+!!! tip
+    Passing `this.handleSubmit` to `this.props.storage.onSubmitApp` is optional. In the above code `this.handleSubmit` is only used to redirect to a different page after the form is submitted. Otherwise it could have been omitted.
 
 ### Step 4. Create the index page
-Create a new source code file and save it at _src/main/javascript/PageIndex.jsx_. This page will display the values entered on the settings page.
+Create a new Javascript file and save it at _src/main/javascript/PageIndex.jsx_. This page will display the values entered on the settings page.
 
 ```jsx
 import React from 'react';
@@ -114,21 +123,21 @@ class PageIndex extends React.Component {
     return (
       <Container>
         <ul>
-            <li>First name: {settings.first_name}</li>
-            <li>Last name: {settings.last_name}</li>
+          <li>Client ID: {settings.clientId}</li>
+          <li>Client Secret: {settings.clientSecret}</li>
         </ul>
         <LinkButton to="settings">
-            Edit
+          Edit
         </LinkButton>
       </Container>
     );
   }
 }
 
-export default sdkConnect(PageSettings);
+export default sdkConnect(PageIndex);
 ```
 
-The storage values saved by the settings form are read from `this.props.storage.app.settings`, which have been updated automatically when the values were written to storage.
+The storage values saved by the settings form are read from `this.props.storage.app.settings`, which has been updated automatically when the values were written to storage.
 
 ### Step 5. Modify the app component
 Open the main app component at _src/main/javascript/App.jsx_. The [Routes and Route components](/pages/components/Routes/) will be used to display either the index or settings page.
@@ -152,11 +161,14 @@ const App = () => (
 export default App;
 ```
 
+!!! note
+    The `App` component does not need to be connected to the SDK with `sdkConnect`, because it will be wrapped by the `DeskproSDK` component.
+
 ### Step 6. Run the dev server
-Start the dev server.
+Make sure DeskPRO is running on your computer, and start the dev server.
 
 ```
 npm run dev
 ```
 
-Now open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
+When the dev server is finished building the app you can open your browser to [https://localhost/agent/?appstore.environment=development](https://deskpro-dev/agent/?appstore.environment=development).
