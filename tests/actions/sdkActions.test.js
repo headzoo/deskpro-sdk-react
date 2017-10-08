@@ -15,9 +15,18 @@ test('sdkActions.createBatchStorage', () => {
 
 test('sdkActions.ready', () => {
   const expectedAction = {
-    type: types.SDK_READY
+    type:  types.SDK_READY,
+    ready: true
   };
   expect(sdkActions.ready()).toEqual(expectedAction);
+});
+
+test('sdkActions.refreshing', () => {
+  const expectedAction = {
+    type:       types.SDK_REFRESHING,
+    refreshing: true
+  };
+  expect(sdkActions.refreshing()).toEqual(expectedAction);
 });
 
 test('sdkActions.clearErrors', () => {

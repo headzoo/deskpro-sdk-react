@@ -1,11 +1,12 @@
 export default {
   form: {},
   sdk:  {
-    me:      {},
-    tabData: {},
-    ready:   false,
-    errors:  [],
-    oauth:   {
+    me:         {},
+    tabData:    {},
+    ready:      false,
+    refreshing: false,
+    errors:     [],
+    oauth:      {
       providers: {}
     },
     route: {

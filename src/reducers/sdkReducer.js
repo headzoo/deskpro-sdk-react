@@ -22,15 +22,30 @@ function splitKey(key) {
 }
 
 /**
- * Handles types.SDK_APP_VALUES
+ * Handles types.SDK_READY
  *
  * @param {*} state
+ * @param {*} action
  * @returns {*}
  */
-function reduceReady(state) {
+function reduceReady(state, action) {
   return {
     ...state,
-    ready: true
+    ready: action.ready
+  };
+}
+
+/**
+ * Handles types.SDK_REFRESHING
+ *
+ * @param {*} state
+ * @param {*} action
+ * @returns {*}
+ */
+function reduceRefreshing(state, action) {
+  return {
+    ...state,
+    refreshing: action.refreshing
   };
 }
 
@@ -202,6 +217,7 @@ function reduceOauthProvider(state, action) {
 
 const reducers = {
   [types.SDK_READY]:          reduceReady,
+  [types.SDK_REFRESHING]:     reduceRefreshing,
   [types.SDK_ERROR]:          reduceError,
   [types.SDK_CLEAR_ERRORS]:   reduceClearErrors,
   [types.SDK_ME]:             reduceMe,

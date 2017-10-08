@@ -9,6 +9,7 @@ const dpapp = {
   context: {
     getTabData: () => Promise.resolve()
   },
+  on:      () => {},
   oauth:   {},
   ui:      {},
   restApi: {

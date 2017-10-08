@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { UIConstants } from '@deskproapps/deskproapps-sdk-core';
+import { UIConstants, AppEvents } from '@deskproapps/deskproapps-sdk-core';
 import { Heading, Icon, Loader, Alert, DrawerList, Drawer } from 'deskpro-components';
 import { dpappPropType, storePropType } from '../utils/props';
 import * as sdkActions from '../actions/sdkActions';
@@ -82,7 +82,7 @@ class DeskproSDK extends React.Component {
   /**
    * @returns {{dpapp: *}}
    */
-  getChildContext() {
+  getChildContext = () => {
     const { store } = this.props;
 
     return {
@@ -90,15 +90,33 @@ class DeskproSDK extends React.Component {
       route: new Route(store.dispatch, store.getState().sdk.route),
       store
     };
-  }
+  };
 
   /**
    * Bootstraps the application
    */
   componentDidMount = () => {
+    this.bootstrap();
+    this.props.dpapp.on(AppEvents.EVENT_REFRESH, this.refresh);
+  };
+
+  /**
+   * Triggered before the component is unmounted
+   */
+  componentWillUnmount = () => {
+    this.props.dpapp.off(AppEvents.EVENT_REFRESH, this.refresh);
+  };
+
+  /**
+   * Bootstraps the app component
+   *
+   * @returns {Promise}
+   */
+  bootstrap = () => {
     const { actions } = this.props;
 
-    Promise.all([
+    actions.ready(false);
+    return Promise.all([
       ...this.bootstrapMe(),
       ...this.bootstrapTabData(),
       ...this.bootstrapStorage()
@@ -194,6 +212,20 @@ class DeskproSDK extends React.Component {
     }
 
     return promises;
+  };
+
+  /**
+   * Refreshes the application
+   */
+  refresh = () => {
+    const { actions } = this.props;
+
+    actions.refreshing(true);
+    this.bootstrap()
+      .then(() => actions.refreshing(false))
+      .catch((error) => {
+        return actions.error(error);
+      });
   };
 
   /**

@@ -1,4 +1,5 @@
 export const SDK_READY           = 'SDK_READY';
+export const SDK_REFRESHING      = 'SDK_REFRESHING';
 export const SDK_ERROR           = 'SDK_ERROR';
 export const SDK_ME              = 'SDK_ME';
 export const SDK_TAB_DATA        = 'SDK_TAB_DATA';

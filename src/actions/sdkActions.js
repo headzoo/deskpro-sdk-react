@@ -35,11 +35,26 @@ export function createBatchStorage(obj) {
 /**
  * Sets the app in the ready state
  *
- * @returns {{type: SDK_READY}}
+ * @param {bool} r
+ * @returns {{type: SDK_READY, ready: bool}}
  */
-export function ready() {
+export function ready(r = true) {
   return {
-    type: types.SDK_READY
+    type:  types.SDK_READY,
+    ready: r
+  };
+}
+
+/**
+ * Sets the app in/out of a refreshing state
+ *
+ * @param {bool} r
+ * @returns {{type: SDK_REFRESHING, refreshing: boolean}}
+ */
+export function refreshing(r = true) {
+  return {
+    type:       types.SDK_REFRESHING,
+    refreshing: r
   };
 }
 

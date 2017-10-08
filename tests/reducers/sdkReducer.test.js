@@ -7,10 +7,20 @@ const merge = obj => Object.assign({}, initialState.sdk, obj);
 const data = [
   {
     action: {
-      type: types.SDK_READY
+      type:  types.SDK_READY,
+      ready: true
     },
     expected: {
       ready: true
+    }
+  },
+  {
+    action: {
+      type:       types.SDK_REFRESHING,
+      refreshing: true
+    },
+    expected: {
+      refreshing: true
     }
   },
   {
