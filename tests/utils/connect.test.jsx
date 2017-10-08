@@ -4,6 +4,7 @@ import Adapter from 'enzyme-adapter-react-15';
 import * as connect from '../../src/utils/connect';
 import Storage from '../../src/utils/storage';
 import Route from '../../src/utils/route';
+import UI from '../../src/utils/ui';
 
 configure({ adapter: new Adapter() });
 
@@ -70,8 +71,7 @@ test('dpappProvider passes props to the wrapped component', () => {
     context,
     tabData,
     dpapp,
-    me,
-    ui
+    me
   };
   Object.keys(expected).forEach((key) => {
     expect(app.prop(key)).toEqual(expected[key]);
@@ -79,10 +79,11 @@ test('dpappProvider passes props to the wrapped component', () => {
   expect(app.dive().text()).toEqual('Testing');
   expect(app.prop('storage')).toBeInstanceOf(Storage);
   expect(app.prop('route')).toBeInstanceOf(Route);
+  expect(app.prop('ui')).toBeInstanceOf(UI);
 });
 
 test('sdkConnect to call the redux connect function', () => {
-  const store = {
+  const s = {
     getState:  jest.fn().mockReturnValue({}),
     subscribe: jest.fn(),
     dispatch
@@ -91,7 +92,7 @@ test('sdkConnect to call the redux connect function', () => {
     () => <div>Testing</div>
   );
   const app = shallow(<Connected />, {
-    context: { store }
+    context: { store: s }
   });
 
   const expected = {
@@ -102,6 +103,6 @@ test('sdkConnect to call the redux connect function', () => {
   Object.keys(expected).forEach((key) => {
     expect(app.prop(key)).toEqual(expected[key]);
   });
-  expect(store.getState).toHaveBeenCalled();
-  expect(store.subscribe).toHaveBeenCalled();
+  expect(s.getState).toHaveBeenCalled();
+  expect(s.subscribe).toHaveBeenCalled();
 });

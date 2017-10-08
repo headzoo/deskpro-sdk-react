@@ -20,7 +20,24 @@ const data = [
       refreshing: true
     },
     expected: {
-      refreshing: true
+      ui: {
+        loading:    false,
+        refreshing: true,
+        badgeCount: 0
+      }
+    }
+  },
+  {
+    action: {
+      type:    types.SDK_LOADING,
+      loading: true
+    },
+    expected: {
+      ui:   {
+        loading:    true,
+        refreshing: false,
+        badgeCount: 0
+      }
     }
   },
   {
@@ -39,6 +56,19 @@ const data = [
     },
     expected: {
       errors: []
+    }
+  },
+  {
+    action: {
+      type:       types.SDK_BADGE_COUNT,
+      badgeCount: 1
+    },
+    expected: {
+      ui: {
+        loading:    false,
+        refreshing: false,
+        badgeCount: 1
+      }
     }
   },
   {

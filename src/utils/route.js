@@ -9,9 +9,22 @@ export default class Route {
    */
   constructor(dispatch, route) {
     this.dispatch = dispatch;
-    this.location = route.location;
-    this.params   = route.params;
+    this.setValues(route);
   }
+
+  /**
+   * @param {*} values
+   */
+  setValues = (values) => {
+    const routeValues = Object.assign({}, values);
+    Object.keys(routeValues).forEach((key) => {
+      Object.defineProperty(this, key, {
+        value:        values[key],
+        configurable: false,
+        writable:     false
+      });
+    });
+  };
 
   /**
    *

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { UIConstants, AppEvents } from '@deskproapps/deskproapps-sdk-core';
+import { AppEvents } from '@deskproapps/deskproapps-sdk-core';
 import { Heading, Icon, Loader, Alert, DrawerList, Drawer } from 'deskpro-components';
 import { dpappPropType, storePropType } from '../utils/props';
 import * as sdkActions from '../actions/sdkActions';
@@ -234,24 +234,20 @@ class DeskproSDK extends React.Component {
    * @returns {*}
    */
   renderToolbar = () => {
-    const { dpapp } = this.props;
-    const manifest = dpapp.manifest;
-    const ui = dpapp.ui;
+    const { dpapp, sdk } = this.props;
 
     const controls = [];
-    if (ui.menu !== UIConstants.VISIBILITY_HIDDEN) {
-      controls.push(
-        <Icon key="refresh" name="refresh" onClick={dpapp.refresh} />
-      );
-    }
+    controls.push(
+      <Icon key="refresh" name="refresh" onClick={dpapp.refresh} />
+    );
 
     return (
       <Heading controls={controls}>
         <AppIcon
-          badgeCount={ui.badgeCount}
-          badgeVisible={ui.badge === UIConstants.VISIBILITY_VISIBLE}
+          badgeCount={sdk.badgeCount}
+          badgeVisible={sdk.badgeCount > 0}
         />
-        {manifest.title}
+        {dpapp.manifest.title}
       </Heading>
     );
   };
@@ -304,12 +300,14 @@ class DeskproSDK extends React.Component {
    * @returns {XML}
    */
   render() {
+    const { sdk } = this.props;
+
     return (
       <DrawerList>
         <Drawer className="dp-column-drawer--with-controls">
           {this.renderToolbar()}
           {this.renderErrors()}
-          {!this.props.sdk.ready || this.props.dpapp.ui.isLoading()
+          {!sdk.ready || sdk.ui.loading
             ? this.renderLoading()
             : this.renderApp()
           }

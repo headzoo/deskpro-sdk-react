@@ -36,6 +36,22 @@ function reduceReady(state, action) {
 }
 
 /**
+ * Handles types.SDK_LOADING
+ *
+ * @param {*} state
+ * @param {*} action
+ * @returns {*}
+ */
+function reduceLoading(state, action) {
+  return {
+    ...state,
+    ui: Object.assign({}, state.ui, {
+      loading: action.loading
+    })
+  };
+}
+
+/**
  * Handles types.SDK_REFRESHING
  *
  * @param {*} state
@@ -45,7 +61,9 @@ function reduceReady(state, action) {
 function reduceRefreshing(state, action) {
   return {
     ...state,
-    refreshing: action.refreshing
+    ui: Object.assign({}, state.ui, {
+      refreshing: action.refreshing
+    })
   };
 }
 
@@ -86,6 +104,22 @@ function reduceClearErrors(state) {
   return {
     ...state,
     errors: []
+  };
+}
+
+/**
+ * Handles types.SDK_BADGE_COUNT
+ *
+ * @param {*} state
+ * @param {*} action
+ * @returns {*}
+ */
+function reduceBadgeCount(state, action) {
+  return {
+    ...state,
+    ui: Object.assign({}, state.ui, {
+      badgeCount: action.badgeCount
+    })
   };
 }
 
@@ -218,8 +252,10 @@ function reduceOauthProvider(state, action) {
 const reducers = {
   [types.SDK_READY]:          reduceReady,
   [types.SDK_REFRESHING]:     reduceRefreshing,
+  [types.SDK_LOADING]:        reduceLoading,
   [types.SDK_ERROR]:          reduceError,
   [types.SDK_CLEAR_ERRORS]:   reduceClearErrors,
+  [types.SDK_BADGE_COUNT]:    reduceBadgeCount,
   [types.SDK_ME]:             reduceMe,
   [types.SDK_TAB_DATA]:       reduceTabData,
   [types.SDK_TO_ROUTE]:       reduceToRoute,

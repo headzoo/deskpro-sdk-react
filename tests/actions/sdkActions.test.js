@@ -29,12 +29,29 @@ test('sdkActions.refreshing', () => {
   expect(sdkActions.refreshing()).toEqual(expectedAction);
 });
 
+test('sdkActions.loading', () => {
+  const expectedAction = {
+    type:    types.SDK_LOADING,
+    loading: true
+  };
+  expect(sdkActions.loading()).toEqual(expectedAction);
+});
+
 test('sdkActions.clearErrors', () => {
   const expectedAction = {
     type: types.SDK_CLEAR_ERRORS
   };
 
   expect(sdkActions.clearErrors()).toEqual(expectedAction);
+});
+
+test('sdkActions.badgeCount', () => {
+  const expectedAction = {
+    type:       types.SDK_BADGE_COUNT,
+    badgeCount: 1
+  };
+
+  expect(sdkActions.badgeCount(1)).toEqual(expectedAction);
 });
 
 test('sdkActions.me', () => {

@@ -43,10 +43,18 @@ export default class Storage {
 
     const storageValues = Object.assign({}, values);
     Object.keys(storageValues.app).forEach((key) => {
-      this.app[key] = storageValues.app[key];
+      Object.defineProperty(this.app, key, {
+        value:        storageValues.app[key],
+        configurable: false,
+        writable:     false
+      });
     });
     Object.keys(storageValues.entity).forEach((key) => {
-      this.entity[key] = storageValues.entity[key];
+      Object.defineProperty(this.entity, key, {
+        value:        storageValues.entity[key],
+        configurable: false,
+        writable:     false
+      });
     });
   };
 

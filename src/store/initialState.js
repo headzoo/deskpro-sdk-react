@@ -1,13 +1,17 @@
 export default {
   form: {},
   sdk:  {
-    me:         {},
-    tabData:    {},
-    ready:      false,
-    refreshing: false,
-    errors:     [],
-    oauth:      {
+    me:      {},
+    tabData: {},
+    errors:  [],
+    ready:   false,
+    oauth:   {
       providers: {}
+    },
+    ui: {
+      loading:    false,
+      refreshing: false,
+      badgeCount: 0
     },
     route: {
       location: 'index',

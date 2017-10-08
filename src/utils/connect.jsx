@@ -5,6 +5,7 @@ import { dpappPropType } from './props';
 import * as sdkActions from '../actions/sdkActions';
 import Storage from './storage';
 import Route from './route';
+import UI from './ui';
 
 /**
  * Creates the SDK props which get passed to connected components
@@ -15,19 +16,15 @@ import Route from './route';
 export function sdkProps(props) {
   const { dpapp, store, sdk } = props;
 
-  const dispatch = store.dispatch;
-  const me       = Object.assign({}, sdk.me);
-  const tabData  = Object.assign({}, sdk.tabData);
-  const storage  = new Storage(dispatch, sdk.storage);
-  const route    = new Route(dispatch, sdk.route);
-  const context  = dpapp.context;
-  const oauth    = dpapp.oauth;
-  const ui       = dpapp.ui;
-
+  const dispatch  = store.dispatch;
+  const me        = Object.assign({}, sdk.me);
+  const tabData   = Object.assign({}, sdk.tabData);
+  const context   = dpapp.context;
+  const oauth     = dpapp.oauth;
+  const storage   = new Storage(dispatch, sdk.storage);
+  const route     = new Route(dispatch, sdk.route);
+  const ui        = new UI(dispatch, sdk.ui);
   oauth.providers = sdk.oauth.providers;
-  ui.error        = (error) => {
-    dispatch(sdkActions.error(error));
-  };
 
   return {
     context,

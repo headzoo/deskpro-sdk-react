@@ -59,6 +59,19 @@ export function refreshing(r = true) {
 }
 
 /**
+ * Sets the app in/out of the loading state
+ *
+ * @param {bool} l
+ * @returns {{type: SDK_LOADING, loading: boolean}}
+ */
+export function loading(l = true) {
+  return {
+    type:    types.SDK_LOADING,
+    loading: l
+  };
+}
+
+/**
  * Pushes the given error to the list of stored errors
  *
  * @param {Error|string} e
@@ -80,6 +93,19 @@ export function error(e) {
 export function clearErrors() {
   return {
     type: types.SDK_CLEAR_ERRORS
+  };
+}
+
+/**
+ * Sets the badge count
+ *
+ * @param {number} count
+ * @returns {{type: SDK_BADGE_COUNT, badgeCount: number}}
+ */
+export function badgeCount(count) {
+  return {
+    type:       types.SDK_BADGE_COUNT,
+    badgeCount: count
   };
 }
 
