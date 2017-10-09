@@ -89,12 +89,12 @@ class DeskproSDK extends React.Component {
    * @returns {{dpapp: *}}
    */
   getChildContext = () => {
-    const { store } = this.props;
+    const { dpapp, store } = this.props;
 
     return {
-      dpapp: this.props.dpapp,
       route: new Route(store.dispatch, store.getState().sdk.route),
-      store
+      store,
+      dpapp
     };
   };
 
