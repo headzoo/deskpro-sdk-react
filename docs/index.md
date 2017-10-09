@@ -1,110 +1,48 @@
-# Overview
-This page will help you install and build your first DeskproApps app using the React SDK.
+# Welcome!
+DeskPRO React SDK is a library for connecting [React](https://reactjs.org/) components to the DeskPRO API.
 
-## Getting Started
-
-### Create the manifest
-A manifest containing your app details must exist in the project root directory. The manifest details may be placed in the project _package.json_ file **or** a separate _manifest.json_ file.
-
-_package.json_
-
-```json
-{
-  "name": "my-app",
-  "version": "0.1.0",
-  "deskpro": {
-    "version": "2.1.0",
-    "title": "My App",
-    "isSingle": true,
-    "scope": "agent",
-    "state": [
-      {
-        "name": "settings",
-        "isBackendOnly": false,
-        "permRead": "OWNER",
-        "permWrite": "OWNER"
-      }
-    ],
-    "targets": [
-      {
-        "target": "ticket-sidebar",
-        "url": "html/index.html"
-      }
-    ]
-  }
-}
-```
-
-_manifest.json_
-
-```json
-{
-  "version": "2.1.0",
-  "title": "My App",
-  "isSingle": true,
-  "scope": "agent",
-  "state": [
-    {
-      "name": "settings",
-      "isBackendOnly": false,
-      "permRead": "OWNER",
-      "permWrite": "OWNER"
-    }
-  ],
-  "targets": [
-    {
-      "target": "ticket-sidebar",
-      "url": "html/index.html"
-    }
-  ]
-}
-```
-
-### Create the component
-
-_App.jsx_
+## A Simple App
+The SDK automatically passes DeskPRO related props to your component, like the `tabData` prop which contains information about the open ticket.
 
 ```jsx
 import React from 'react';
+import { Avatar } from 'deskpro-components';
 
-class App extends React.Component {
-  /**
-   * @returns {XML}
-   */
+export default class App extends React.Component {
   render() {
+    const { tabData } = this.props;
+    
     return (
-      <div>
-        Hello, World!
-      </div>
+      <ul>
+        {tabData.participants.map(({ person }) => (
+          <li key={person.id}>
+            <Avatar src={person.default_picture_url} />
+            <div>
+              {person.name}
+            </div>
+            <div>
+              {person.primary_email.email}
+            </div>
+          </li>
+        ))}
+      </ul>
     );
   }
 }
-
-export default App;
 ```
 
-### Create the entry point
+![screenshot](/images/tutorials/basic-1.png)
 
-_index.js_
+## Tutorials
 
-```jsx
-import ReactDOM from 'react-dom';
-import { DeskproSDK, configureStore } from 'deskpro-sdk-react';
-import App from './App';
+#### [Basic](/pages/tutorials/basic)
+A tutorial that walks you through creating a simple DeskPRO app which displays a list of people participating in a ticket.
 
-export function runApp(dpapp) {
-  const store = configureStore(dpapp);
+#### [Form Handling](/pages/tutorials/form)
+A tutorial that walks you through creating a DeskPRO app which has two pages. One page with a settings form and one page which displays the form values.
 
-  ReactDOM.render(
-    <DeskproSDK dpapp={dpapp} store={store}>
-      <App />
-    </DeskproSDK>,
-    document.getElementById('deskpro-app')
-  );
-}
+#### [Using OAuth](/pages/tutorials/oauth)
+A tutorial that walks you through creating a DeskPRO app which uses oauth to authenticate with a remote service provider.
 
-```
-
-### Run the app
-
-`npm run dev`
+#### [Using Redux](/pages/tutorials/redux)
+A tutorial that walks advanced developers through using Redux with the SDK.

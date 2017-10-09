@@ -60,12 +60,18 @@
 
     {% include "nav.html" %}
 
-    <div class="container">
-        {% block content %}
-        <div class="col-md-3">{% include "toc.html" %}</div>
-        <div class="col-md-9" role="main">{% include "content.html" %}</div>
-        {% endblock %}
-    </div>
+    {% block content %}
+        {% if current_page and current_page.is_homepage %}
+        <div class="container">
+          <div class="col-md-12" role="main">{% include "content.html" %}</div>
+        </div>
+        {% else %}
+        <div class="container">
+          <div class="col-md-3">{% include "toc.html" %}</div>
+          <div class="col-md-9" role="main">{% include "content.html" %}</div>
+        </div>
+        {% endif %}
+    {% endblock %}
 
     <footer class="col-md-12 text-center">
         {% if current_page %}
