@@ -75,7 +75,13 @@ function reduceRefreshing(state, action) {
  * @returns {*}
  */
 function reduceError(state, action) {
-  const msg    = String(action.error);
+  let msg;
+  if (typeof action.error === 'object' && action.error.message !== undefined) {
+    msg = action.error.message;
+  } else {
+    msg = String(action.error);
+  }
+
   const errors = state.errors.slice(0);
   const found  = errors.find((e) => {
     return e.msg === msg;

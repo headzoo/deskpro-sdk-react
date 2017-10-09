@@ -4,8 +4,6 @@ This tutorial will walk you through creating a DeskPRO app which has two pages. 
 
 ![screenshot](/images/tutorials/form-1.png)
 
-![screenshot](/images/tutorials/form-2.png)
-
 ----
 
 To follow this tutorial you will need:
@@ -116,6 +114,8 @@ class PageForm extends React.Component {
 export default sdkConnect(PageForm);
 ```
 
+![screenshot](/images/tutorials/form-1.png)
+
 **Explanation**
 
 *  The form uses components from the [deskpro-components](https://github.com/deskpro/deskpro-components) library, which is included in the boilerplate by default.
@@ -173,6 +173,8 @@ class PageIndex extends React.Component {
 
 export default sdkConnect(PageIndex);
 ```
+
+![screenshot](/images/tutorials/form-2.png)
 
 **Explanation**
 
