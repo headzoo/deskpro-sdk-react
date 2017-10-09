@@ -2,33 +2,28 @@
 DeskPRO React SDK is a library for connecting [React](https://reactjs.org/) components to the DeskPRO API.
 
 ## A Simple App
-The SDK automatically passes DeskPRO related props to your component, like the `tabData` prop which contains information about the open ticket.
+The SDK automatically passes DeskPRO props to your components, like the `tabData` prop which contains details about an open ticket.
 
 ```jsx
 import React from 'react';
-import { Avatar } from 'deskpro-components';
 
-export default class App extends React.Component {
-  render() {
-    const { tabData } = this.props;
-    
-    return (
-      <ul>
-        {tabData.participants.map(({ person }) => (
-          <li key={person.id}>
-            <Avatar src={person.default_picture_url} />
-            <div>
-              {person.name}
-            </div>
-            <div>
-              {person.primary_email.email}
-            </div>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-}
+const App = ({ tabData }) => (
+  <ul>
+    {tabData.participants.map(({ person }) => (
+      <li key={person.id}>
+        <img src={person.default_picture_url} />
+        <div>
+          {person.name}
+        </div>
+        <div>
+          {person.primary_email.email}
+        </div>
+      </li>
+    ))}
+  </ul>
+);
+
+export default App;
 ```
 
 ![screenshot](/images/tutorials/basic-1.png)
