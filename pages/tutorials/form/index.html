@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="shortcut icon" href="../../../favicon.png">
+
+    <title>Form Handling - DeskPRO React SDK</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/agate.min.css">
+    <link rel="stylesheet" href="../../../css/base.css">
+    <link rel="stylesheet" href="../../../css/psinder.css">
+    
+    
+
+
+    <link href="../../../css/site.css" rel="stylesheet">
+
+
+    <link href="../../../css/admonition.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../../..">
+                <img src="../../../logo.png" />
+                DeskPRO React SDK
+            </a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../../..">Overview</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../manifest/">Manifest</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../props/">Props</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../components/DeskproSDK/">DeskproSDK</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../components/Routes/">Routes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../components/Link/">Link</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../components/LinkButton/">LinkButton</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../basic/">Basic App</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Form Handling</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../oauth/">Using OAuth</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../redux/">Using Redux</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li>
+                        <a href="https://github.com/DeskproApps/sdk-react">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="first-level active"><a href="#overview">Overview</a></li>
+        
+            <li class="second-level"><a href="#step-1-clone-the-boilerplate">Step 1. Clone the boilerplate</a></li>
+            
+        
+            <li class="second-level"><a href="#step-2-update-the-manifest">Step 2. Update the manifest</a></li>
+            
+        
+            <li class="second-level"><a href="#step-3-create-the-settings-page">Step 3. Create the settings page</a></li>
+            
+        
+            <li class="second-level"><a href="#step-4-create-the-index-page">Step 4. Create the index page</a></li>
+            
+        
+            <li class="second-level"><a href="#step-5-modify-the-app-component">Step 5. Modify the app component</a></li>
+            
+        
+            <li class="second-level"><a href="#step-6-run-the-dev-server">Step 6. Run the dev server</a></li>
+            
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="overview">Overview</h1>
+<p>This tutorial will walk you through creating a DeskPRO app which has two pages. One page with a settings form and one page which displays the form values. <a href="../../../pages/props/#storage">App storage</a> will be used to save the values, and the <a href="../../../pages/props/#route">route object</a> will be used to switch between the two pages.</p>
+<p><img alt="screenshot" src="../../../images/tutorials/form-1.png" /></p>
+<hr />
+<p>To follow this tutorial you will need:</p>
+<ul>
+<li><a href="https://github.com/deskpro/deskpro/blob/develop/README.md">DeskPRO running on your computer</a></li>
+<li>NPM 6 or greater</li>
+<li>Git 1.9 or greater</li>
+<li>A IDE or text editor</li>
+</ul>
+<hr />
+<h3 id="step-1-clone-the-boilerplate">Step 1. Clone the boilerplate</h3>
+<p>The SDK boilerplate includes the basic app configuration and files to help developers get started writing apps.</p>
+<pre><code>git clone https://github.com/deskpro/deskproapps-boilerplate-react form-tutorial
+cd form-tutorial
+npm install
+</code></pre>
+
+<h3 id="step-2-update-the-manifest">Step 2. Update the manifest</h3>
+<p>Edit the app configuration in <em>package.json</em>, which can be found in the app root directory. Change the "title" property to "Form Tutorial".</p>
+<pre><code class="json">{
+  &quot;deskpro&quot;: {
+    &quot;version&quot;: &quot;2.1.0&quot;,
+    &quot;title&quot;: &quot;Form Tutorial&quot;,
+    &quot;isSingle&quot;: true,
+    &quot;scope&quot;: &quot;agent&quot;,
+    &quot;targets&quot;: [
+      {
+        &quot;target&quot;: &quot;ticket-sidebar&quot;,
+        &quot;url&quot;: &quot;html/index.html&quot;
+      }
+    ],
+    &quot;storage&quot;: [
+      {
+        &quot;name&quot;: &quot;settings&quot;,
+        &quot;isBackendOnly&quot;: false,
+        &quot;permRead&quot;: &quot;EVERYBODY&quot;,
+        &quot;permWrite&quot;: &quot;EVERYBODY&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+
+<p><strong>Explanation</strong>  </p>
+<ul>
+<li>The "title" value will be shown in the app toolbar. See the <a href="../../../pages/manifest">manifest documentation</a> for more information.</li>
+</ul>
+<h3 id="step-3-create-the-settings-page">Step 3. Create the settings page</h3>
+<p>Create a new component with a form at <em>src/main/javascript/PageForm.jsx</em>.</p>
+<pre><code class="jsx">// PageForm.jsx
+
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Container } from 'deskpro-components';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageForm extends React.Component {
+  /**
+   * Changes to the index page after the form is submitted and
+   * the values have been written to app storage.
+   *
+   * @param {object} formValues
+   */
+  handleSubmit = (formValues) =&gt; {
+    this.props.route.to('index');
+  };
+
+  /**
+   * @returns {XML}
+   */
+  render() {
+    const { storage } = this.props;
+    const initialValues = (storage.app.settings || {});
+
+    return (
+      &lt;Container&gt;
+        &lt;Form
+          name=&quot;settings&quot;
+          initialValues={initialValues}
+          onSubmit={storage.onSubmitApp(this.handleSubmit)}
+        &gt;
+          &lt;Input
+            label=&quot;Client ID&quot;
+            id=&quot;clientId&quot;
+            name=&quot;clientId&quot;
+          /&gt;
+          &lt;Input
+            label=&quot;Client Secret&quot;
+            id=&quot;clientSecret&quot;
+            name=&quot;clientSecret&quot;
+          /&gt;
+          &lt;Button&gt;
+            Save
+          &lt;/Button&gt;
+        &lt;/Form&gt;
+      &lt;/Container&gt;
+    );
+  }
+}
+
+export default sdkConnect(PageForm);
+</code></pre>
+
+<p><img alt="screenshot" src="../../../images/tutorials/form-1.png" /></p>
+<p><strong>Explanation</strong></p>
+<ul>
+<li>
+<p>The form uses components from the <a href="https://github.com/deskpro/deskpro-components">deskpro-components</a> library, which is included in the boilerplate by default.</p>
+</li>
+<li>
+<p>The <a href="../../../pages/props/#storage">this.props.storage.onSubmitApp</a> function is passed to the form <code>onSubmit</code> handler to automatically save the submitted form values to app storage. The function saves the form values to the DeskPRO database using the form <code>name</code> prop ("settings") as the storage key. See the <a href="../../../pages/props/#storage">storage documentation</a> for more information.</p>
+</li>
+<li>
+<p>The <code>this.handleSubmit</code> function is then called by <code>this.props.storage.onSubmitApp</code> with the form values. The function switches to the index page using the SDK router. See the <a href="../../../pages/props/#route">route documentation</a> for more information.</p>
+</li>
+<li>
+<p>The form is initialized with the existing settings by passing <code>this.props.storage.app.settings</code> to the <code>initialValues</code> prop. This works because values written to app storage using the key "settings" can be read from storage via the prop <code>this.storage.app.settings</code>.</p>
+</li>
+<li>
+<p>The <code>PageForm</code> component is connected to the SDK using the <code>sdkConnect</code> function. Which is required in order to read and write to storage. See the documentation on <a href="../../../pages/props/#connecting-your-components">connecting components to the SDK</a> for more information.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code uses <code>(storage.app.settings || {})</code> to assign a default value because the settings will not exist the first time you run the app.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The callback passed to <code>this.props.storage.onSubmitApp</code> is optional and may be omitted. Simply pass the function to the submit handler using <code>onSubmit={this.props.storage.onSubmitApp}</code> when post-processing of the form values is not required.</p>
+</div>
+<h3 id="step-4-create-the-index-page">Step 4. Create the index page</h3>
+<p>Create a new component to display the form values at <em>src/main/javascript/PageIndex.jsx</em>.</p>
+<pre><code class="jsx">// PageIndex.jsx
+
+import React from 'react';
+import { LinkButton, sdkConnect } from 'deskpro-sdk-react';
+import { Container } from 'deskpro-components';
+
+class PageIndex extends React.Component {
+  /**
+   * @returns {XML}
+   */
+  render() {
+    const { storage } = this.props;
+    const settings = storage.app.settings;
+
+    return (
+      &lt;Container&gt;
+        &lt;div&gt;
+          &lt;div&gt;
+            Client ID: {settings.clientId}
+          &lt;/div&gt;
+          &lt;div&gt;
+            Client Secret: {settings.clientSecret}
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;LinkButton to=&quot;form&quot;&gt;
+          Edit
+        &lt;/LinkButton&gt;
+      &lt;/Container&gt;
+    );
+  }
+}
+
+export default sdkConnect(PageIndex);
+</code></pre>
+
+<p><img alt="screenshot" src="../../../images/tutorials/form-2.png" /></p>
+<p><strong>Explanation</strong></p>
+<ul>
+<li>
+<p>The settings were saved to app storage using the key "settings" which means they can be read from storage from <code>this.props.storage.app.settings</code>. See the <a href="../../../pages/props/#storage">storage documentation</a> for more information.</p>
+</li>
+<li>
+<p>The <code>LinkButton</code> component uses the SDK router to switch to the "form" page when clicked. See the <a href="../../../pages/props/#route">route documentation</a> for more information.</p>
+</li>
+<li>
+<p>The <code>PageIndex</code> component is connected to the SDK using the <code>sdkConnect</code> function. Which is required in order to read and write to storage. See the documentation on <a href="../../../pages/props/#connecting-your-components">connecting components to the SDK</a> for more information.</p>
+</li>
+</ul>
+<h3 id="step-5-modify-the-app-component">Step 5. Modify the app component</h3>
+<p>Edit the app component at <em>src/main/javascript/App.jsx</em> to look like the following code.</p>
+<pre><code class="jsx">// App.jsx
+
+import React from 'react';
+import { Routes, Route } from 'deskpro-sdk-react';
+import { Container } from 'deskpro-components';
+import PageForm from './PageForm';
+import PageIndex from './PageIndex';
+
+const App = () =&gt; (
+  &lt;Container&gt;
+    &lt;Routes&gt;
+        &lt;Route location=&quot;index&quot; component={PageIndex} /&gt;
+        &lt;Route location=&quot;form&quot; component={PageForm} /&gt;
+    &lt;/Routes&gt;
+  &lt;/Container&gt;
+);
+
+export default App;
+</code></pre>
+
+<p><strong>Explanation</strong></p>
+<ul>
+<li>The <code>Routes</code> components reads the <code>this.props.route.location</code> value to render the <code>Route</code> with the matching <code>location</code> prop. See the <a href="../../../pages/components/Routes/">Routes component documentation</a> for more information.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>App</code> component is connected to the SDK automatically by the boilerplate, and does <em>not</em> need to be wrapped with <code>sdkConnect</code>.</p>
+</div>
+<h3 id="step-6-run-the-dev-server">Step 6. Run the dev server</h3>
+<p>Make sure DeskPRO is running on your computer, and then from the app root directory run the following command.</p>
+<pre><code>npm run dev
+</code></pre>
+
+<p>The <code>dev</code> script builds your app and starts a development server which communicates with DeskPRO to install the app. Open <a href="https://deskpro-dev/agent/?appstore.environment=development">https://localhost/agent/?appstore.environment=development</a> when the the <code>dev</code> command finishes building to view the finished app.</p></div>
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+            
+            <p><a href="https://github.com/DeskproApps/sdk-react/tree/master/docs/pages/tutorials/form.md" class="icon icon-github"> Edit this page on GitHub</a></p>
+            
+        
+        
+            <small>Copyright 2001 – 2017 Deskpro Ltd. All rights reserved.<br></small>
+        
+    </footer>
+
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+    var base_url = '../../..';
+    </script>
+    <script data-main="../../../mkdocs/js/search.js" src="../../../mkdocs/js/require.js"></script>
+    <script src="../../../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

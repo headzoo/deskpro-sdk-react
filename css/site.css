@@ -1,0 +1,135 @@
+body {
+  color: #000;
+  background-color: #FFF;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+.nav {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000;
+}
+
+a {
+  color: #4696dc;
+}
+
+a:hover {
+  font-weight: inherit;
+}
+
+footer {
+  color: #FFF;
+  padding: 30px;
+  background-color: #1D3E55;
+}
+
+footer p:last-child {
+  margin-bottom: 0;
+}
+
+pre {
+  padding: 0;
+  border: 1px solid #203950;
+}
+
+pre > code {
+  font-size: 14px;
+}
+
+img {
+  max-width: 100%;
+}
+
+hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border: 0;
+  border-top: 1px solid #d0d0d0;
+}
+
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active:hover > a,
+.bs-sidebar .nav > .active:focus > a {
+  color: #ffffff;
+}
+
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li > a:focus {
+  color: #ffffff;
+}
+
+.navbar-default .navbar-nav>.active > a,
+.navbar-default .navbar-nav>.active > a:hover,
+.navbar-default .navbar-nav>.active > a:focus {
+  color: #FFF;
+  background-color: #6faee6;
+}
+
+.navbar-default .navbar-nav>.open > a,
+.navbar-default .navbar-nav>.open > a:focus,
+.navbar-default .navbar-nav>.open > a:hover {
+  color: #FFF;
+  background-color: #6faee6;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFF;
+  background-color: #75bff8;
+}
+
+.navbar-default .dropdown-menu > .active > a,
+.navbar-default .dropdown-menu > .active > a:hover,
+.navbar-default .dropdown-menu > li > a:hover {
+  color: #FFF;
+  background-color: #75bff8;
+}
+
+.navbar-default {
+  background: #3d91d9 url(https://deskpro.com/assets/build/assets/images/home-page/new-hero-background@2x.jpg);
+}
+
+.navbar-default .navbar-brand {
+  color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #FFF;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #FFF;
+}
+
+.navbar-brand img {
+  height: 20px;
+}
+
+.bs-sidenav {
+  font-size: 14px;
+  background-color: #3782C5;
+}
+
+.modal-content {
+  color: #FFF;
+  border: 0;
+  background-color: #3782C5;
+}
+
+.modal-content a {
+  color: #FFF;
+}
+
+.modal-content h4 {
+  color: #FFF;
+}
+
+img[alt="screenshot"] {
+  margin: 1rem 0;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="shortcut icon" href="../../../favicon.png">
+
+    <title>Using Redux - DeskPRO React SDK</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/agate.min.css">
+    <link rel="stylesheet" href="../../../css/base.css">
+    <link rel="stylesheet" href="../../../css/psinder.css">
+    
+    
+
+
+    <link href="../../../css/site.css" rel="stylesheet">
+
+
+    <link href="../../../css/admonition.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../../..">
+                <img src="../../../logo.png" />
+                DeskPRO React SDK
+            </a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../../..">Overview</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../manifest/">Manifest</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../props/">Props</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../components/DeskproSDK/">DeskproSDK</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../components/Routes/">Routes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../components/Link/">Link</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../components/LinkButton/">LinkButton</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../basic/">Basic App</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../form/">Form Handling</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../oauth/">Using OAuth</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Using Redux</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li>
+                        <a href="https://github.com/DeskproApps/sdk-react">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="first-level active"><a href="#overview">Overview</a></li>
+        
+            <li class="second-level"><a href="#configuring">Configuring</a></li>
+            
+        
+            <li class="second-level"><a href="#middleware">Middleware</a></li>
+            
+        
+            <li class="second-level"><a href="#reducers">Reducers</a></li>
+            
+        
+            <li class="second-level"><a href="#dispatch">Dispatch</a></li>
+            
+        
+            <li class="second-level"><a href="#debugging">Debugging</a></li>
+            
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="overview">Overview</h1>
+<p><a href="http://redux.js.org/">Redux</a> is used internally by the SDK to manage state. Its usage has been hidden away to make the SDK user friendly, but it may be used by developers in need of a centralized store.</p>
+<h2 id="configuring">Configuring</h2>
+<p>The SDK store is created by the <code>configureStore()</code> function, and the store object must be passed to the <code>DeskproSDK</code> component via the <code>store</code> prop.</p>
+<pre><code class="js">import ReactDOM from 'react-dom';
+import { DeskproSDK, configureStore } from 'deskpro-sdk-react';
+
+const store = configureStore(dpapp);
+
+export function runApp(dpapp) {
+  ReactDOM.render(
+    &lt;DeskproSDK dpapp={dpapp} store={store}&gt;
+      &lt;App /&gt;
+    &lt;/DeskproSDK&gt;,
+    document.getElementById('deskpro-app')
+  );
+}
+</code></pre>
+
+<h2 id="middleware">Middleware</h2>
+<p>The store may be configured with additional middleware by passing an array of functions as the second argument to <code>configureStore()</code>.</p>
+<pre><code class="js">import { configureStore } from 'deskpro-sdk-react';
+import logger from 'redux-logger';
+import analytics from 'redux-analytics';
+
+const store = configureStore(dpapp, [logger, analytics]);
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a href="https://github.com/gaearon/redux-thunk">Thunk</a> middleware is included by default.</p>
+</div>
+<h2 id="reducers">Reducers</h2>
+<p>Additional reducers may also be passed to the <code>configureStore()</code> function.</p>
+<pre><code class="js">import { configureStore } from 'deskpro-sdk-react';
+
+const customReducer = (state, action) =&gt; {
+    return state;
+}
+const store = configureStore(dpapp, {
+    custom: customReducer
+});
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="https://redux-form.com/7.1.0/">Redux Form</a> reducer is included by default.</p>
+</div>
+<p>Initial state for the custom reducers may also be passed to the <code>configureStore()</code> function.</p>
+<pre><code class="js">import { configureStore } from 'deskpro-sdk-react';
+
+const customReducer = (state, action) =&gt; {
+    return state;
+}
+const reducers = {
+    custom: customReducer
+}
+const initialState = {
+    custom: { foo: 'bar' }
+}
+const store = configureStore(dpapp, reducers, initialState);
+</code></pre>
+
+<p>The following example uses middleware, reducers, and initial state.</p>
+<pre><code class="js">import ReactDOM from 'react-dom';
+import { DeskproSDK, configureStore } from 'deskpro-sdk-react';
+import logger from 'redux-logger';
+import analytics from 'redux-analytics';
+
+const customReducer = (state, action) =&gt; {
+    return state;
+}
+const reducers = {
+    custom: customReducer
+}
+const initialState = {
+    custom: { foo: 'bar' }
+}
+const store = configureStore(dpapp, [logger, analytics], reducers, initialState);
+
+export function runApp(dpapp) {
+  ReactDOM.render(
+    &lt;DeskproSDK dpapp={dpapp} store={store}&gt;
+      &lt;App /&gt;
+    &lt;/DeskproSDK&gt;,
+    document.getElementById('deskpro-app')
+  );
+}
+</code></pre>
+
+<h2 id="dispatch">Dispatch</h2>
+<p>Components which have been <a href="../../../pages/props/#connecting-your-components">connected to the SDK</a> will have the redux <a href="http://redux.js.org/docs/api/Store.html#dispatch">dispatch</a> function passed to their props.</p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Container } from 'deskpro-components';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageSettings extends React.Component {
+  /**
+   * Dispatches the APP_SETTINGS_CHANGED action after the form has
+   * been submitted.
+   */
+  handleSubmit = (settings) =&gt; {
+    this.props.dispatch({
+        type: 'APP_SETTINGS_CHANGED',
+        settings
+    });
+  };
+
+  /**
+   * @returns {XML}
+   */
+  render() {
+    return (
+      &lt;Container&gt;
+        &lt;Form name=&quot;settings&quot; onSubmit={this.handleSubmit}&gt;
+          &lt;Input
+            label=&quot;Client ID&quot;
+            id=&quot;clientId&quot;
+            name=&quot;clientId&quot;
+          /&gt;
+          &lt;Button&gt;
+            Save
+          &lt;/Button&gt;
+        &lt;/Form&gt;
+      &lt;/Container&gt;
+    );
+  }
+}
+
+export default sdkConnect(PageSettings);
+</code></pre>
+
+<h2 id="debugging">Debugging</h2>
+<p>The SDK automatically enables support for the <a href="https://github.com/zalmoxisus/redux-devtools-extension">Redux DevTools Extension</a> when running in the "development" environment. The extension allows developers to view, modify, and playback the redux state. It runs in Chrome, Firefox, and other browsers.</p>
+<p><img alt="screenshot" src="https://cloud.githubusercontent.com/assets/7957859/18002950/aacb82fc-6b93-11e6-9ae9-609862c18302.png" /></p></div>
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+            
+            <p><a href="https://github.com/DeskproApps/sdk-react/tree/master/docs/pages/tutorials/redux.md" class="icon icon-github"> Edit this page on GitHub</a></p>
+            
+        
+        
+            <small>Copyright 2001 – 2017 Deskpro Ltd. All rights reserved.<br></small>
+        
+    </footer>
+
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+    var base_url = '../../..';
+    </script>
+    <script data-main="../../../mkdocs/js/search.js" src="../../../mkdocs/js/require.js"></script>
+    <script src="../../../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

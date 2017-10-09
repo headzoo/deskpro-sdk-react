@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="shortcut icon" href="../../favicon.png">
+
+    <title>Props - DeskPRO React SDK</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/agate.min.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/psinder.css">
+    
+    
+
+
+    <link href="../../css/site.css" rel="stylesheet">
+
+
+    <link href="../../css/admonition.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">
+                <img src="../../logo.png" />
+                DeskPRO React SDK
+            </a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Overview</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../manifest/">Manifest</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Props</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../components/DeskproSDK/">DeskproSDK</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../components/Routes/">Routes</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../components/Link/">Link</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../components/LinkButton/">LinkButton</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../tutorials/basic/">Basic App</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../tutorials/form/">Form Handling</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../tutorials/oauth/">Using OAuth</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../tutorials/redux/">Using Redux</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li>
+                        <a href="https://github.com/DeskproApps/sdk-react">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="first-level active"><a href="#overview">Overview</a></li>
+        
+            <li class="second-level"><a href="#connecting-your-components">Connecting your components</a></li>
+            
+        
+            <li class="second-level"><a href="#storage">Storage</a></li>
+            
+        
+            <li class="second-level"><a href="#route">Route</a></li>
+            
+        
+            <li class="second-level"><a href="#oauth">OAuth</a></li>
+            
+        
+            <li class="second-level"><a href="#tabdata">TabData</a></li>
+            
+        
+            <li class="second-level"><a href="#me">Me</a></li>
+            
+        
+            <li class="second-level"><a href="#ui">UI</a></li>
+            
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="overview">Overview</h1>
+<p>The SDK automatically passes a number of objects to your components via props. Some of the SDK props contain information about the running application and current context, and some provide methods to interact with DeskPRO. For instance the <a href="#storage">storage</a> prop which allows developers to persist values with the DeskPRO application, and the <a href="#me">me</a> prop which contains information about the person using the app.</p>
+<h2 id="connecting-your-components">Connecting your components</h2>
+<p>Components which need access to the SDK props must be <em>connected</em> to the SDK. The <a href="../../pages/components/DeskproSDK/">DeskproSDK component</a> automatically connects the wrapped component.</p>
+<p>The <code>&lt;App /&gt;</code> component in the following example will have all SDK props passed to it because it's wrapped by the <code>DeskproSDK</code> component.</p>
+<pre><code class="jsx">ReactDOM.render(
+    &lt;DeskproSDK dpapp={dpapp} store={store}&gt;
+      &lt;App /&gt;
+    &lt;/DeskproSDK&gt;,
+    document.getElementById('deskpro-app')
+);
+</code></pre>
+
+<p>Only the app root component gets wrapped by <code>DeskproSDK</code>. The other components in your app will use the <code>sdkConnect</code> function to connect them to the SDK props. Its usage is optional, and is only required when a component needs access to the props.</p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-react-sdk';
+
+class PageSettings extends React.Component {
+    render() {
+        return (
+            &lt;div&gt;
+                {this.props.storage.app.country}
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(PageSettings);
+</code></pre>
+
+<p>The function may be used as a decorator when <a href="https://babeljs.io/docs/plugins/transform-decorators/">decorators are enabled</a>.</p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-react-sdk';
+
+@sdkConnect
+export default class PageSettings extends React.Component {
+    render() {
+        return (
+            &lt;div&gt;
+                {this.props.storage.app.country}
+            &lt;/div&gt;
+        );
+    }
+}
+</code></pre>
+
+<p><strong>Advanced usage</strong><br />
+React SDK uses <a href="http://redux.js.org/">Redux</a> internally to manage state. The same <code>mapStateToProps</code> and <code>mapDispatchToProps</code> functions <a href="https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">supported by React Redux</a> may also be passed to the <code>sdkConnect</code> function.</p>
+<pre><code class="js">import React from 'react';
+import { sdkConnect } from 'deskpro-react-sdk';
+
+class PageSettings extends React.Component {
+    render() {
+        return (
+            &lt;div&gt;
+                {this.props.country}
+            &lt;/div&gt;
+        );
+    }
+}
+
+const mapStateToProps(state) {
+    return {
+        country: state.sdk.storage.app.settings.country
+    };
+};
+
+export default sdkConnect(PageSettings, mapStateToProps);
+</code></pre>
+
+<hr />
+<h2 id="storage">Storage</h2>
+<p><code>this.props.storage</code></p>
+<p>An object which reads and writes values to the DeskPRO database in order to persist them from one invocation of the app and another. Two mechanisms are provided for storing values. One for storing global "app" values, and one for attaching "entity" values to the currently opened ticket.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a href="../../pages/manifest/#storage">manifest storage configuration</a> for more information about declaring storage values and setting permissions.</p>
+</div>
+<p>Call <code>this.props.storage.setApp()</code> to persist global values which will be bound the app. For instance app settings or user information. The method takes an object of key/value pairs.</p>
+<pre><code class="js">this.props.storage.setApp({ country: 'uk' });
+</code></pre>
+
+<p>Once the values have been saved the SDK will pass new props to the connected components with the new values. The app values can then be read from the <code>this.props.storage.app</code> object.</p>
+<pre><code class="js">const country = this.props.storage.app.country;
+</code></pre>
+
+<p>The following example renders a form with a list of countries. The component uses <code>this.props.storage</code> to save the selected value.</p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Select, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageCountry extends React.Component {
+    /**
+     * Receives the submitted form values and saves them to
+     * app storage
+     */
+    handleSubmit = (values) =&gt; {
+        this.props.storage.setApp({ country: values.country });
+    };
+
+    /**
+     * @returns {XML}
+     */
+    render() {
+        const initialValues = {
+            country: this.props.storage.app.country
+        };
+        const options = [
+            { label: 'United Kingdom', value: 'uk' },
+            { label: 'United States', value: 'us' }
+        ];
+
+        return (
+            &lt;Form onSubmit={this.handleSubmit} initialValues={initialValues}&gt;
+                &lt;Select
+                    label=&quot;Country&quot;
+                    id=&quot;country&quot;
+                    name=&quot;country&quot;
+                    options={options}
+                /&gt;
+                &lt;Button&gt;Submit&lt;/Button&gt;
+            &lt;/Form&gt;
+        );
+    }
+}
+
+export default sdkConnect(PageCountry);
+</code></pre>
+
+<p>Call <code>this.props.storage.setEntity()</code> to attach values to the currently opened ticket. Unlike the global app values, entity values are unique to each ticket. The method takes an object of key/value pairs.</p>
+<pre><code class="js">this.props.storage.setEntity({ note: '...' });
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under the hood the SDK saves the value using key "note:{ticket_id}". Which means the value of "note" is unique to the ticket being viewed.</p>
+</div>
+<p>Once the values have been saved they can be read from the <code>this.props.storage.entity</code> object.</p>
+<pre><code class="js">const note = this.props.storage.entity.note;
+</code></pre>
+
+<p>The following example allows agents to attach notes to the opened ticket. It shows the current notes with a form to create a new note.</p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Textarea, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class Notes extends React.Component {
+    /**
+     * Receives the submitted form values and saves them to
+     * app storage
+     */
+    handleSubmit = (values) =&gt; {
+        const { storage } = this.props;
+        const notes = storage.entity.notes;
+
+        // Clone the existing notes or create a new array if the ticket
+        // doesn't have any existing notes.
+        const newNotes = (notes || []).slice(0);
+        newNotes.push(values.note);
+
+        // Attach the notes to the open ticket. This will overwrite the
+        // existing value.
+        storage.setEntity({ notes: newNotes });
+    };
+
+    /**
+     * @returns {XML}
+     */
+    render() {
+        const { storage } = this.props;
+        const notes = storage.entity.notes;
+
+        return (
+            &lt;div&gt;
+                &lt;h1&gt;Notes&lt;/h1&gt;
+                &lt;ul&gt;
+                    {notes.map((note) =&gt; (
+                        &lt;li&gt;{note}&lt;/li&gt;
+                    ))}
+                &lt;/ul&gt;
+
+                &lt;Form onSubmit={this.handleSubmit}&gt;
+                    &lt;Textarea
+                        label=&quot;Add note&quot;
+                        id=&quot;note&quot;
+                        name=&quot;note&quot;
+                    /&gt;
+                    &lt;Button&gt;Submit&lt;/Button&gt;
+                &lt;/Form&gt;
+
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(Notes);
+</code></pre>
+
+<p>The SDK can automatically save form values to app/entity storage with <code>this.props.storage.onSubmitApp</code> and <code>this.props.storage.onSubmitEntity</code>. Use them as the form <code>onSubmit</code> handler, and the form values will be written to storage using the name of the form as the storage key.</p>
+<p>The following example uses <code>this.props.storage.onSubmitApp</code> to automatically save the form values to app storage. The values will be saved using the key "settings".</p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageSettings extends React.Component {
+  render() {
+    const { storage } = this.props;
+    const settings = storage.app.settings || {};
+
+    /**
+     * @returns {XML}
+     */
+    return (
+        &lt;div&gt;
+            &lt;div&gt;Client ID: {settings.clientId}&lt;/div&gt;
+            &lt;Form name=&quot;settings&quot; onSubmit={storage.onSubmitApp}&gt;
+              &lt;Input
+                id=&quot;clientId&quot;
+                name=&quot;clientId&quot;
+              /&gt;
+            &lt;/Form&gt;
+            &lt;Button&gt;Submit&lt;/Button&gt;
+        &lt;/div&gt;
+    );
+}
+</code></pre>
+
+<p>An optional callback may be passed to the submit handlers which is called after the form values have been successfully written to storage.</p>
+<pre><code class="jsx">class PageSettings extends React.Component {
+    /**
+     * Called after the values have been saved to storage
+     */
+    handleSubmit = (values) =&gt; {
+        console.log(values);
+        this.props.route.to('index');
+    };
+
+    /**
+     * @returns {XML}
+     */
+    render() {
+        const { storage } = this.props;
+
+        return (
+            &lt;Form
+              name=&quot;settings&quot;
+              onSubmit={storage.onSubmitApp(this.handleSubmit)}
+            &gt;
+              &lt;Input
+                id=&quot;clientId&quot;
+                name=&quot;clientId&quot;
+              /&gt;
+            &lt;/Form&gt;
+        );
+    }
+}
+</code></pre>
+
+<hr />
+<h2 id="route">Route</h2>
+<p><code>this.props.route</code></p>
+<p>A light-weight router which is used to display different "pages" within an app. Pages within apps do not have URLs like web pages, but they can be given simple labels like "settings" or "index", and <code>this.props.route</code> can then be used to switch between them.</p>
+<p>The following example uses a <code>switch</code> statement to display a different page depending on the current location.</p>
+<pre><code class="js">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import PageAccount from './PageAccount';
+import PageIndex from './PageIndex';
+
+class Content extends React.Component {
+    render() {
+        const { route } = this.props;
+
+        switch (route.location) {
+          case 'account':
+            return &lt;PageAccount /&gt;;
+          case 'index':
+            return &lt;PageIndex /&gt;;
+        }
+    }
+}
+
+export default sdkConnect(Content);
+</code></pre>
+
+<p>The object contains two properties:</p>
+<ul>
+<li><code>this.props.route.location</code> - A string with the name of the current page</li>
+<li><code>this.props.route.params</code> - An object of key/value pairs associated with the location</li>
+</ul>
+<p>The <a href="../../pages/components/Routes">Routes</a> and <a href="../../pages/components/Routes">Route</a> components may be used in place of a <code>switch</code> statement.</p>
+<pre><code class="jsx">// App.jsx
+import React from 'react';
+import { Routes, Route, sdkConnect } from 'deskpro-sdk-react';
+import PageAccount from './PageAccount';
+import PageIndex from './PageIndex';
+
+class App extends React.Component {
+  render() {
+    return (
+      &lt;Routes&gt;
+        &lt;Route location=&quot;account&quot; component={PageAccount} /&gt;
+        &lt;Route location=&quot;index&quot; component={PageIndex} /&gt;
+      &lt;/Routes&gt;
+    );
+  }
+}
+
+export default sdkConnect(App);
+</code></pre>
+
+<p>The location is changed by calling <code>this.props.route.to()</code> with the name of a page.</p>
+<pre><code class="js">this.props.route.to('index');
+</code></pre>
+
+<p>Params may also be passed along with the location.</p>
+<pre><code class="js">this.props.route.to('account', { id: 5 });
+</code></pre>
+
+<p>The following example renders two pages. An "index" page with a form where a note may be entered, and a "note" page which displays the note.</p>
+<pre><code class="jsx">// PageIndex.jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+import { Form, Input, Button } from 'deskpro-components/lib/bindings/redux-form';
+
+class PageIndex extends React.Component {
+    /**
+     * Switches to the &quot;note&quot; page, passing the note value along with
+     * the location.
+     */
+    handleSubmit = (values) =&gt; {
+        this.props.route.to('note', { note: values.note });
+    };
+
+    /**
+     * @returns {XML}
+     */
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;Form onSubmit={this.handleSubmit}&gt;
+                    &lt;Input
+                        label=&quot;Note:&quot;
+                        id=&quot;note&quot;
+                        name=&quot;note&quot;
+                    /&gt;
+                    &lt;Button&gt;Submit&lt;/Button&gt;
+                &lt;/Form&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(PageIndex);
+</code></pre>
+
+<pre><code class="jsx">// PageNote.jsx
+import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+
+class PageNote extends React.Component {
+    /**
+     * Changes to the index page when the button is clicked.
+     */
+    handleClick = () =&gt; {
+        this.props.route.to('index');
+    };
+
+    /**
+     * @returns {XML}
+     */
+    render() {
+        const { route } = this.props;
+
+        return (
+            &lt;div&gt;
+                &lt;p&gt;{route.params.note}&lt;/p&gt;
+                &lt;button onClick={this.handleClick}&gt;
+                    To index page
+                &lt;/button&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(PageNote);
+</code></pre>
+
+<p>The <code>Routes</code> and <code>Route</code> components are used to switch between the two pages.</p>
+<pre><code class="jsx">// App.jsx
+import React from 'react';
+import { Routes, Route } from 'deskpro-sdk-react';
+import PageNote from './PageNote';
+import PageIndex from './PageIndex';
+
+const App = () =&gt; (
+  &lt;Routes&gt;
+    &lt;Route location=&quot;note&quot; component={PageNote} /&gt;
+    &lt;Route location=&quot;index&quot; component={PageIndex} /&gt;
+  &lt;/Routes&gt;
+);
+</code></pre>
+
+<p>Connected components may also change the location using the <a href="../../pages/components/Link">Link</a> and <a href="../../pages/components/LinkButton">LinkButton</a> components.</p>
+<pre><code class="js">import React from 'react';
+import { sdkConnect, Link, LinkButton } from 'deskpro-sdk-react';
+
+class Menu extends React.Component {
+    render() {
+        return (
+            &lt;nav&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;settings&quot;&gt;
+                            Settings
+                        &lt;/Link&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;Link to=&quot;account&quot; params={{ id: 5 }}&gt;
+                            Account
+                        &lt;/Link&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;LinkButton to=&quot;index&quot;&gt;
+                    Home
+                &lt;/LinkButton&gt;
+            &lt;/nav&gt;
+        );
+    }
+}
+
+export default sdkConnect(Menu);
+</code></pre>
+
+<hr />
+<h2 id="oauth">OAuth</h2>
+<p><code>this.props.oauth</code></p>
+<p>An object which authenticates with remote services and stores oauth credentials.</p>
+<p>Save oauth connection settings.</p>
+<pre><code class="js">const connection = {
+  urlAccessToken: OAUTH_ACCESS_URI,
+  urlAuthorize:   OAUTH_AUTH_URI,
+  clientId:       '...',
+  clientSecret:   '...'
+};
+
+this.props.oauth.register('provider_name', connection);
+</code></pre>
+
+<p>Authenticate with the oauth provider and save the access token.</p>
+<pre><code class="js">this.props.oauth.access('provider_name')
+  .then(({ accessToken }) =&gt; {
+    this.props.storage.setApp({ user_settings: { accessToken } });
+  });
+</code></pre>
+
+<p>Read the app oauth provider settings.</p>
+<pre><code class="js">const provider_settings = this.props.oauth.providers.provider_name;
+</code></pre>
+
+<hr />
+<h2 id="tabdata">TabData</h2>
+<p><code>this.props.tabData</code></p>
+<p>An object which is populated with the details of the currently opened ticket.</p>
+<pre><code class="js">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+
+class TicketInfo extends React.Component {
+    render() {
+        const { tabData } = this.props;
+
+        return (
+            &lt;ul&gt;
+                &lt;li&gt;ID: {tabData.id}&lt;/li&gt;
+                &lt;li&gt;Created: {tabData.date_created}&lt;/li&gt;
+                &lt;li&gt;Subject: {tabData.subject}&lt;/li&gt;
+            &lt;/ul&gt;
+        );
+    }
+}
+
+export default sdkConnect(Menu);
+</code></pre>
+
+<p>The object contains the following properties:</p>
+<pre><code class="js">{
+    id:                             number,
+    is_hold:                        bool,
+    access_code:                    string,
+    access_code_email_body_token:   string,
+    access_code_email_header_token: string,
+    agent:                          object,
+    attachments:                    array,
+    auth:                           string,
+    category:                       object,
+    count_agent_replies:            number,
+    count_user_replies:             number,
+    current_user_waiting:           number,
+    current_user_waiting_work:      number,
+    custom_data:                    array,
+    date_agent_waiting:             string,
+    date_agent_waiting_ts:          number,
+    date_agent_waiting_ts_ms:       number,
+    date_archived:                  string,
+    date_archived_ts:               number,
+    date_archived_ts_ms:            number,
+    date_created:                   string,
+    date_created_ts:                number,
+    date_created_ts_ms:             number,
+    date_feedback_rating_ts:        number,
+    date_feedback_rating_ts_ms:     number,
+    date_first_agent_assign:        string,
+    date_first_agent_assign_ts:     number,
+    date_first_agent_assign_ts_ms:  number,
+    date_first_agent_reply:         string,
+    date_first_agent_reply_ts:      number,
+    date_first_agent_reply_ts_ms:   number,
+    date_last_agent_reply:          string,
+    date_last_agent_reply_ts:       number,
+    date_last_agent_reply_ts_ms:    number,
+    date_last_user_reply:           string,
+    date_last_user_reply_ts:        number,
+    date_last_user_reply_ts_ms:     number,
+    date_locked:                    string,
+    date_locked_ts:                 number,
+    date_locked_ts_ms:              number,
+    date_on_hold:                   string,
+    date_on_hold_ts:                number,
+    date_on_hold_ts_ms:             number,
+    date_resolved:                  string,
+    date_resolved_ts:               number,
+    date_resolved_ts_ms:            number,
+    date_status:                    string,
+    date_status_ts:                 number,
+    date_status_ts_ms:              number,
+    date_user_waiting:              string,
+    date_user_waiting_ts:           number,
+    date_user_waiting_ts_ms:        number,
+    department:                     object,
+    has_attachments:                bool,
+    hidden_status:                  string,
+    labels:                         array,
+    language:                       object,
+    organization:                   object,
+    original_subject:               string,
+    parent_ticket:                  string,
+    participants:                   array,
+    person:                         object,
+    person_email:                   object,
+    priority:                       string,
+    product:                        object,
+    ref:                            string,
+    sent_to_address:                string,
+    status:                         string,
+    subject:                        string,
+    ticket_hash:                    string,
+    ticket_slas:                    object,
+    total_to_first_reply:           number,
+    total_to_first_reply_work:      number,
+    total_to_resolution:            number,
+    total_to_resolution_work:       number,
+    total_user_waiting:             number,
+    total_user_waiting_real:        number,
+    total_user_waiting_work:        number,
+    urgency:                        number,
+    waiting_times:                  array,
+    workflow:                       object,
+    worst_sla_status:               string
+}
+</code></pre>
+
+<hr />
+<h2 id="me">Me</h2>
+<p><code>this.props.me</code></p>
+<p>An object which is populated with the details of the agent/admin using the app.</p>
+<pre><code class="js">import React from 'react';
+import { sdkConnect } from 'deskpro-sdk-react';
+
+class Page extends React.Component {
+    render() {
+        const { me } = this.props;
+
+        return (
+            &lt;div&gt;
+                Welcome, {me.name}!
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(Menu);
+</code></pre>
+
+<p>The object contains the following properties:</p>
+<pre><code class="js">{
+    id:              number,
+    avatar:          object,
+    can_admin:       bool,
+    can_agent:       bool,
+    can_billing:     bool,
+    is_agent:        bool,
+    is_confirmed:    bool,
+    is_contact:      bool,
+    is_deleted:      bool,
+    is_disabled:     bool,
+    is_user:         bool,
+    was_agent:       bool,
+    online:          bool,
+    labels:          array,
+    teams:           array,
+    phone_numbers:   array,
+    date_created:    string,
+    date_last_login: string,
+    name:            string,
+    display_name:    string,
+    first_name:      string,
+    last_name:       string,
+    primary_email:   object,
+    emails:          array,
+    gravatar_url:    string,
+    tickets_count:   number,
+    timezone:        string
+}
+</code></pre>
+
+<hr />
+<h2 id="ui">UI</h2>
+<p><code>this.props.ui</code></p>
+<p>An object containing methods which allow you to manipulate the UI.</p>
+<p>Call <code>this.props.ui.setLoading(true)</code> to display the loading animation, and <code>this.props.ui.setLoading(false)</code> to turn it off.</p>
+<p><img alt="screenshot" src="../../images/props-ui-2.png" /></p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-react-sdk';
+
+class Hello extends React.Component {
+    componentWillUpdate() {
+        this.props.ui.setLoading(true);
+    }
+
+    componentDidUpdate() {
+        this.props.ui.setLoading(false);
+    }
+
+    render() {
+        return (
+            &lt;div&gt;Hello!&lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(Hello);
+</code></pre>
+
+<p>Call <code>this.props.ui.setBadgeCount()</code> to set the badge number displayed above the app icon. The badge is invisible when the value is zero.</p>
+<p><img alt="screenshot" src="../../images/props-ui-1.png" /></p>
+<pre><code class="jsx">import React from 'react';
+import { sdkConnect } from 'deskpro-react-sdk';
+
+class Hello extends React.Component {
+    componentDidMount() {
+        this.props.ui.setBadgeCount(3);
+    }
+
+    render() {
+        return (
+            &lt;div&gt;Hello!&lt;/div&gt;
+        );
+    }
+}
+
+export default sdkConnect(Hello);
+</code></pre></div>
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+            
+            <p><a href="https://github.com/DeskproApps/sdk-react/tree/master/docs/pages/props.md" class="icon icon-github"> Edit this page on GitHub</a></p>
+            
+        
+        
+            <small>Copyright 2001 – 2017 Deskpro Ltd. All rights reserved.<br></small>
+        
+    </footer>
+
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+    var base_url = '../..';
+    </script>
+    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+    <script src="../../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
