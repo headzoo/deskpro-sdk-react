@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AppEvents } from '@deskproapps/deskproapps-sdk-core';
-import { Heading, Icon, Loader, Alert, DrawerList, Drawer } from 'deskpro-components';
+import { AppEvents, UIEvents } from '@deskproapps/deskproapps-sdk-core';
+import { Loader, Alert, DrawerList } from 'deskpro-components';
 import { dpappPropType, storePropType } from '../utils/props';
 import * as sdkActions from '../actions/sdkActions';
 import { sdkProps } from '../utils/connect';
 import Route from '../utils/route';
-import AppIcon from './AppIcon';
 
 /**
  * Connects DeskPRO apps to the DeskPRO API
@@ -85,6 +84,13 @@ class DeskproSDK extends React.Component {
     route: PropTypes.object
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      opened: true
+    };
+  }
+
   /**
    * @returns {{dpapp: *}}
    */
@@ -102,15 +108,21 @@ class DeskproSDK extends React.Component {
    * Bootstraps the application
    */
   componentDidMount = () => {
+    const { dpapp } = this.props;
+
     this.bootstrap();
-    this.props.dpapp.on(AppEvents.EVENT_REFRESH, this.refresh);
+    dpapp.on(AppEvents.EVENT_REFRESH, this.handleRefresh);
+    dpapp.on(UIEvents.EVENT_UI_DISPLAYCHANGED, this.handleDisplayChange);
   };
 
   /**
    * Triggered before the component is unmounted
    */
   componentWillUnmount = () => {
-    this.props.dpapp.off(AppEvents.EVENT_REFRESH, this.refresh);
+    const { dpapp } = this.props;
+
+    dpapp.off(AppEvents.EVENT_REFRESH, this.handleRefresh);
+    dpapp.off(UIEvents.EVENT_UI_DISPLAYCHANGED, this.handleDisplayChange);
   };
 
   /**
@@ -221,9 +233,9 @@ class DeskproSDK extends React.Component {
   };
 
   /**
-   * Refreshes the application
+   * Callback for the AppEvents.EVENT_REFRESH event
    */
-  refresh = () => {
+  handleRefresh = () => {
     const { actions } = this.props;
 
     actions.refreshing(true);
@@ -235,27 +247,10 @@ class DeskproSDK extends React.Component {
   };
 
   /**
-   * Renders the app menu toolbar
-   *
-   * @returns {*}
+   * Callback for the UIEvents.EVENT_UI_DISPLAYCHANGED event
    */
-  renderToolbar = () => {
-    const { dpapp, sdk } = this.props;
-
-    const controls = [];
-    controls.push(
-      <Icon key="refresh" name="refresh" onClick={dpapp.refresh} />
-    );
-
-    return (
-      <Heading controls={controls}>
-        <AppIcon
-          badgeCount={sdk.ui.badgeCount}
-          badgeVisible={sdk.ui.badgeCount > 0}
-        />
-        {dpapp.manifest.title}
-      </Heading>
-    );
+  handleDisplayChange = () => {
+    this.setState({ opened: this.props.dpapp.ui.isExpanded() });
   };
 
   /**
@@ -310,14 +305,16 @@ class DeskproSDK extends React.Component {
 
     return (
       <DrawerList>
-        <Drawer className="dp-column-drawer--with-controls">
-          {this.renderToolbar()}
+        <li
+          className="dp-column-drawer--with-controls"
+          style={{ display: this.state.opened ? 'block' : 'none' }}
+        >
           {this.renderErrors()}
           {!sdk.ready || sdk.ui.loading
             ? this.renderLoading()
             : this.renderApp()
           }
-        </Drawer>
+        </li>
       </DrawerList>
     );
   }
