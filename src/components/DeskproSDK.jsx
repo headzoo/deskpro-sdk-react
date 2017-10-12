@@ -84,13 +84,6 @@ class DeskproSDK extends React.Component {
     route: PropTypes.object
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      opened: true
-    };
-  }
-
   /**
    * @returns {{dpapp: *}}
    */
@@ -250,7 +243,9 @@ class DeskproSDK extends React.Component {
    * Callback for the UIEvents.EVENT_UI_DISPLAYCHANGED event
    */
   handleDisplayChange = () => {
-    this.setState({ opened: this.props.dpapp.ui.isExpanded() });
+    const { actions, sdk } = this.props;
+
+    actions.collapsed(!sdk.ui.collapsed);
   };
 
   /**
@@ -307,7 +302,7 @@ class DeskproSDK extends React.Component {
       <DrawerList>
         <li
           className="dp-column-drawer--with-controls"
-          style={{ display: this.state.opened ? 'block' : 'none' }}
+          style={{ display: sdk.ui.collapsed ? 'none' : 'block' }}
         >
           {this.renderErrors()}
           {!sdk.ready || sdk.ui.loading

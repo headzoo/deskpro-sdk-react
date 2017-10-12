@@ -22,8 +22,8 @@ const data = [
     expected: {
       ui: {
         loading:    false,
-        refreshing: true,
-        badgeCount: 0
+        collapsed:  false,
+        refreshing: true
       }
     }
   },
@@ -33,10 +33,23 @@ const data = [
       loading: true
     },
     expected: {
-      ui:   {
+      ui: {
         loading:    true,
-        refreshing: false,
-        badgeCount: 0
+        collapsed:  false,
+        refreshing: false
+      }
+    }
+  },
+  {
+    action: {
+      type:      types.SDK_COLLAPSED,
+      collapsed: true
+    },
+    expected: {
+      ui: {
+        loading:    false,
+        collapsed:  true,
+        refreshing: false
       }
     }
   },

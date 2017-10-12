@@ -114,6 +114,22 @@ function reduceClearErrors(state) {
 }
 
 /**
+ * Handles types.SDK_COLLAPSED
+ *
+ * @param {*} state
+ * @param {*} action
+ * @returns {*}
+ */
+function reduceCollapsed(state, action) {
+  return {
+    ...state,
+    ui: Object.assign({}, state.ui, {
+      collapsed: action.collapsed
+    })
+  };
+}
+
+/**
  * Handles types.SDK_ME
  *
  * @param {*} state
@@ -245,6 +261,7 @@ const reducers = {
   [types.SDK_LOADING]:        reduceLoading,
   [types.SDK_ERROR]:          reduceError,
   [types.SDK_CLEAR_ERRORS]:   reduceClearErrors,
+  [types.SDK_COLLAPSED]:      reduceCollapsed,
   [types.SDK_ME]:             reduceMe,
   [types.SDK_TAB_DATA]:       reduceTabData,
   [types.SDK_TO_ROUTE]:       reduceToRoute,

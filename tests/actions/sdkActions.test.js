@@ -37,6 +37,14 @@ test('sdkActions.loading', () => {
   expect(sdkActions.loading()).toEqual(expectedAction);
 });
 
+test('sdkActions.collapsed', () => {
+  const expectedAction = {
+    type:      types.SDK_COLLAPSED,
+    collapsed: true
+  };
+  expect(sdkActions.collapsed()).toEqual(expectedAction);
+});
+
 test('sdkActions.clearErrors', () => {
   const expectedAction = {
     type: types.SDK_CLEAR_ERRORS

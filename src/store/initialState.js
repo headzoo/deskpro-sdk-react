@@ -10,8 +10,8 @@ export default {
     },
     ui: {
       loading:    false,
-      refreshing: false,
-      badgeCount: 0
+      collapsed:  false,
+      refreshing: false
     },
     route: {
       location: 'index',

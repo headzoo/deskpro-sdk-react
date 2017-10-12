@@ -97,6 +97,19 @@ export function clearErrors() {
 }
 
 /**
+ * Shows or hides the app
+ *
+ * @param {bool} [c]
+ * @returns {{type: SDK_COLLAPSED, collapsed: *}}
+ */
+export function collapsed(c = true) {
+  return {
+    type:      types.SDK_COLLAPSED,
+    collapsed: c
+  };
+}
+
+/**
  * Sets the "me" object
  *
  * @param {*} data
