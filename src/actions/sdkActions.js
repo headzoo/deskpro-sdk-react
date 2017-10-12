@@ -97,19 +97,6 @@ export function clearErrors() {
 }
 
 /**
- * Sets the badge count
- *
- * @param {number} count
- * @returns {{type: SDK_BADGE_COUNT, badgeCount: number}}
- */
-export function badgeCount(count) {
-  return {
-    type:       types.SDK_BADGE_COUNT,
-    badgeCount: count
-  };
-}
-
-/**
  * Sets the "me" object
  *
  * @param {*} data

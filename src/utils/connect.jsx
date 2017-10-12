@@ -23,7 +23,7 @@ export function sdkProps(props) {
   const oauth     = dpapp.oauth;
   const storage   = new Storage(dispatch, sdk.storage);
   const route     = new Route(dispatch, sdk.route);
-  const ui        = new UI(dispatch, sdk.ui);
+  const ui        = new UI(dispatch, sdk.ui, dpapp);
   oauth.providers = sdk.oauth.providers;
 
   return {

@@ -2,7 +2,6 @@ export const SDK_READY           = 'SDK_READY';
 export const SDK_REFRESHING      = 'SDK_REFRESHING';
 export const SDK_LOADING         = 'SDK_LOADING';
 export const SDK_ERROR           = 'SDK_ERROR';
-export const SDK_BADGE_COUNT     = 'SDK_BADGE_COUNT';
 export const SDK_ME              = 'SDK_ME';
 export const SDK_TAB_DATA        = 'SDK_TAB_DATA';
 export const SDK_TO_ROUTE        = 'SDK_TO_ROUTE';

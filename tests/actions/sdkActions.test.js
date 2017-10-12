@@ -45,15 +45,6 @@ test('sdkActions.clearErrors', () => {
   expect(sdkActions.clearErrors()).toEqual(expectedAction);
 });
 
-test('sdkActions.badgeCount', () => {
-  const expectedAction = {
-    type:       types.SDK_BADGE_COUNT,
-    badgeCount: 1
-  };
-
-  expect(sdkActions.badgeCount(1)).toEqual(expectedAction);
-});
-
 test('sdkActions.me', () => {
   const data = {};
   const expectedAction = {

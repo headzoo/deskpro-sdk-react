@@ -31,18 +31,3 @@ test('UI enters loading state', () => {
   });
 });
 
-test('UI sets badge count', () => {
-  const dispatch = jest.fn();
-  const values   = {
-    loading:    false,
-    refreshing: false,
-    badgeCount: 0
-  };
-  const ui = new UI(dispatch, values);
-  ui.setBadgeCount(3);
-
-  expect(dispatch).toBeCalledWith({
-    type:       types.SDK_BADGE_COUNT,
-    badgeCount: 3
-  });
-});

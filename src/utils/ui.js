@@ -6,9 +6,11 @@ export default class UI {
    *
    * @param {Function} dispatch
    * @param {*} values
+   * @param {App} dpapp
    */
-  constructor(dispatch, values) {
+  constructor(dispatch, values, dpapp) {
     this.dispatch = dispatch;
+    this.dpapp    = dpapp;
     this.setValues(values);
   }
 
@@ -42,6 +44,12 @@ export default class UI {
    */
   setBadgeCount = (count) => {
     this.dispatch(sdkActions.badgeCount(count));
+    this.dpapp.ui.badgeCount = count;
+    if (count > 0) {
+      this.dpapp.ui.showBadgeCount();
+    } else {
+      this.dpapp.ui.hideBadgeCount();
+    }
   };
 
   /**

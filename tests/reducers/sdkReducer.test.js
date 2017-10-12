@@ -60,19 +60,6 @@ const data = [
   },
   {
     action: {
-      type:       types.SDK_BADGE_COUNT,
-      badgeCount: 1
-    },
-    expected: {
-      ui: {
-        loading:    false,
-        refreshing: false,
-        badgeCount: 1
-      }
-    }
-  },
-  {
-    action: {
       type: types.SDK_ME,
       data: { foo: 'bar' }
     },
